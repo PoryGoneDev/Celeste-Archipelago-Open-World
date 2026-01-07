@@ -398,7 +398,7 @@ namespace Celeste.Mod.Celeste_Multiworld
 
             try
             {
-                _session.Locations.CompleteLocationChecks(locations);
+                _session.Locations.CompleteLocationChecksAsync(locations);
             }
             catch (ArchipelagoSocketClosedException)
             {
