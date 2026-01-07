@@ -307,6 +307,8 @@ namespace Celeste.Mod.Celeste_Multiworld
             this.StoredRoom = "";
             this.DeathsCounted = 0;
             this.ItemQueue.Clear();
+            this.MessageLog.Clear();
+            this._lastDeath = DateTime.MinValue;
 
             if (!attemptReconnect)
             {
