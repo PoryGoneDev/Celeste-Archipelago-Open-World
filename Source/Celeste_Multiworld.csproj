@@ -17,7 +17,7 @@
     </ItemDefinitionGroup>
 
     <ItemGroup>
-        <PackageReference Include="Archipelago.MultiClient.Net" Version="6.6.0">
+        <PackageReference Include="Archipelago.MultiClient.Net" Version="6.7.0">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
