@@ -376,7 +376,7 @@ namespace Celeste.Mod.Celeste_Multiworld
             try
             {
                 // Log our current time so we can make sure we ignore our own DeathLink.
-                _lastDeath = DateTime.Now;
+                _lastDeath = DateTime.UtcNow;
                 cause = $"{_session.Players.GetPlayerAlias(Slot)} {cause}.";
 
                 _deathLinkService.SendDeathLink(new(_session.Players.GetPlayerAlias(Slot), cause));
