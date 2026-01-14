@@ -17,10 +17,8 @@
     </ItemDefinitionGroup>
 
     <ItemGroup>
-        <PackageReference Include="Archipelago.MultiClient.Net" Version="6.7.0">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
+        <Reference Include="../../../../../Archipelago.Multiclient.NET/Archipelago.MultiClient.Net/Archipelago.MultiClient.Net/bin/Debug/net6.0/Archipelago.MultiClient.Net.dll" />
+        <Reference Include="../../../../../Archipelago.Multiclient.NET/Archipelago.MultiClient.Net/Archipelago.MultiClient.Net/bin/Debug/net6.0/Newtonsoft.Json.dll" />
         <PackageReference Include="MonoMod.RuntimeDetour" Version="25.2.3" PrivateAssets="all" ExcludeAssets="runtime" />
         <PackageReference Include="MonoMod.Patcher" Version="25.0.0-prerelease.2" />
         <PackageReference Include="CelesteAnalyzer" Version="*" />
