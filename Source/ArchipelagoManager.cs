@@ -60,8 +60,8 @@ namespace Celeste.Mod.Celeste_Multiworld
     {
         public static ArchipelagoManager Instance { get; private set; }
 
-        private static readonly Version _supportedArchipelagoVersion = new(7, 7, 7);
-        public static readonly int _modVersion = 10005;
+        private static readonly Version _supportedArchipelagoVersion = new(0, 6, 5);
+        public static readonly int _modVersion = 10007;
         private static readonly int _minAPWorldVersion = 10000;
 
         private ArchipelagoSession _session;
@@ -307,6 +307,8 @@ namespace Celeste.Mod.Celeste_Multiworld
             this.StoredRoom = "";
             this.DeathsCounted = 0;
             this.ItemQueue.Clear();
+            this.MessageLog.Clear();
+            this._lastDeath = DateTime.MinValue;
 
             if (!attemptReconnect)
             {
@@ -376,7 +378,7 @@ namespace Celeste.Mod.Celeste_Multiworld
             try
             {
                 // Log our current time so we can make sure we ignore our own DeathLink.
-                _lastDeath = DateTime.Now;
+                _lastDeath = DateTime.UtcNow;
                 cause = $"{_session.Players.GetPlayerAlias(Slot)} {cause}.";
 
                 _deathLinkService.SendDeathLink(new(_session.Players.GetPlayerAlias(Slot), cause));
@@ -398,7 +400,7 @@ namespace Celeste.Mod.Celeste_Multiworld
 
             try
             {
-                _session.Locations.CompleteLocationChecks(locations);
+                _session.Locations.CompleteLocationChecksAsync(locations);
             }
             catch (ArchipelagoSocketClosedException)
             {
