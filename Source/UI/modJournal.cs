@@ -502,6 +502,18 @@ namespace Celeste.Mod.Celeste_Multiworld.UI
                     .Add(new OuiJournalPage.IconsCell(haveCoreToggle ? "core_toggle" : "core_toggle_outline"))
                     .Add(new OuiJournalPage.IconsCell(haveFireIce    ? "ice_ball" : "ice_ball_outline"));
             }
+            else if (ArchipelagoManager.Instance.ActiveLevels.Contains("10b"))
+            {
+                self.table.AddRow()
+                    .Add(new OuiJournalPage.EmptyCell(64f))
+                    .Add(new OuiJournalPage.TextCell("Core\nBlocks",         new Vector2(0.5f, 0.5f), 0.32f, Color.Black * 0.9f, 64f, true))
+                    .Add(new OuiJournalPage.TextCell("Fire\nand Ice\nBalls", new Vector2(0.5f, 0.5f), 0.32f, Color.Black * 0.9f, 64f, true));
+
+                OuiJournalPage.Row row8 = self.table.AddRow()
+                    .Add(new OuiJournalPage.EmptyCell(64f))
+                    .Add(new OuiJournalPage.IconsCell(haveCoreBlock  ? "core_block" : "core_block_outline"))
+                    .Add(new OuiJournalPage.IconsCell(haveFireIce    ? "ice_ball" : "ice_ball_outline"));
+            }
 
             if (ArchipelagoManager.Instance.ActiveLevels.Contains("10a"))
             {
