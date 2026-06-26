@@ -62,9 +62,7 @@ namespace Celeste.Mod.Celeste_Multiworld.Items
 
         internal static bool HaveReceived(BlockColor color)
         {
-            bool haveReceived = false;
-            Celeste_MultiworldModule.SaveData.Interactables.TryGetValue((long)color, out haveReceived);
-            return haveReceived;
+            return Celeste_MultiworldModule.SaveData.HaveInteractable((int)color);
         }
     }
 }

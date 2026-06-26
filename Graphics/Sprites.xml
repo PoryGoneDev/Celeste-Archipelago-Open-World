@@ -1,0 +1,1167 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sprites>
+
+  <player path="characters/player/" start="idle">
+    <Origin x="16" y="32" />
+
+    <Loop id="idle_carry" path="idle_carry" delay="0.1" />
+    <Anim id="runSlow_carry" path="run_carry" delay="0.07" />
+    <Loop id="jumpSlow_carry" path="jump_carry" delay="0.1" frames="0,1" />
+    <Anim id="fallSlow_carry" path="jump_carry" delay="0.1" frames="2,3" />
+    <Anim id="pickUp" path="pickup" delay="0.06" />
+    <Anim id="throw" path="throw" delay="0.06" goto="idle" />
+
+    <Anim id="idle" path="idle" delay="0.1" goto="idle"/>
+    
+    <Anim id="idleA" path="idleA" delay="0.12" goto="idle"/>
+    <Anim id="idleB" path="idleB" delay="0.16" goto="idle"/>
+    <Anim id="idleC" path="idleC" delay="0.05" goto="idle"/>
+
+    <Anim id="lookUp" path="lookUp" delay="0.1" frames="2-7" />
+    <Loop id="walk" path="walk" delay="0.06" />
+    <Loop id="push" path="push" delay="0.1" />
+    <Anim id="runSlow" path="runSlow" delay="0.07" goto="runFast" />
+    <Loop id="runFast" path="runFast" delay="0.05" />
+    <Anim id="runStumble" path="runStumble" delay="0.05" frames="10-11,0-11" goto="runFast"/>
+    <Loop id="runWind" path="run_wind" delay="0.095" frames="0-11"/>
+    <Loop id="dash" path="dash" delay="0.09" />
+    <Anim id="dreamDashIn" path="dreamDash" frames="0-3" delay="0.04" goto="dreamDashLoop"/>
+    <Loop id="dreamDashLoop" path="dreamDash" frames="4-16" delay="0.03" />
+    <Anim id="dreamDashOut" path="dreamDash" frames="17-20" delay="0.04" />
+    <Loop id="slide" path="slide" delay="0.03" />
+    <Loop id="jumpSlow" path="jumpSlow" delay="0.1" frames="0,1" />
+    <Loop id="jumpFast" path="jumpFast" delay="0.1" frames="0,1" />
+    <Anim id="fallSlow" path="jumpSlow" delay="0.1" frames="2,3" />
+    <Anim id="fallFast" path="jumpFast" delay="0.1" frames="2,3" />
+    <Loop id="tired" path="tired" delay="0.18" />
+    <Anim id="tiredStill" path="tired" frames="0" />
+    <Loop id="wallslide" path="climb" frames="0" />
+    <Anim id="climbLookBackStart" path="climb" delay="0.08" frames="6,7,8" goto="climbLookBack" />
+    <Loop id="climbLookBack" path="climb" frames="8" />
+    <Loop id="climbup" path="climb" delay="0.04" frames="0-5" />
+    <Anim id="climbPush" path="climb" delay="0.04" frames="0,9-11" />
+    <Anim id="climbPull" path="climb" delay="0.04" frames="0,12-14" />
+    <Loop id="duck" path="duck" delay="0" frames="0" />
+    <Anim id="fallPose" path="fallPose" delay="0.1" frames="0-10" goto="idle"/>
+    <Loop id="edge" path="edge" delay="0.25" frames="0-13" />
+    <Loop id="edgeBack" path="edge_back" delay="0.25"/>
+    <Anim id="faint" path="faint" delay="0.1" frames="0-10" goto="fainted" />
+    <Loop id="fainted" path="faint" delay="0.1" frames="10" />
+    <Anim id="flip" path="flip" delay="0.04" frames="0-7" goto="runFast"/>
+    <Loop id="skid" path="flip" delay="0.04" frames="8"/>
+    <Loop id="dangling" path="dangling" delay="0.11" frames="0-9" />
+    <Anim id="deadside" path="death_h" delay="0.02" frames="0-12" />
+    <Anim id="deadup"   path="death_h" delay="0.02" frames="0-12" />
+    <Anim id="deaddown" path="death_h" delay="0.02" frames="0-12" />
+    
+    <Loop id="swimIdle" path="swim" frames="0-5" delay="0.08" />
+    <Loop id="swimUp" path="swim" frames="6-11" delay="0.08" />
+    <Loop id="swimDown" path="swim" frames="12-17" delay="0.08" />
+      
+    <Anim id="startStarFly" path="startStarFly" delay="0.08" goto="starFly"/>
+    <Loop id="starFly" path="starFly" delay="0.08"/>
+    <Loop id="bubble" path="bubble" delay="0.08"/>
+
+    <Anim id="fall" path="fall" delay="0.06" frames="0-7" />
+    <Loop id="bigFall" path="bigFall" frames="0-4" delay="0.06"/>
+    <Anim id="bigFallRecover" path="bigFall" frames="5*5,6*4,7*3,8,8,9,9,10,10,10" delay="0.08" goto="swimIdle"/>
+
+    <Anim id="sleep" path="sleep" delay="0.1" frames="0-10,10*5,11-23" />
+    <Anim id="bagdown" path="sleep" delay="0.1" frames="0-10" />
+    <Anim id="asleep" path="wakeUp/" frames="0" />
+    <Anim id="wakeUp" path="wakeUp/" delay=".1" frames="0-4,5*10,6-14" />
+    <Anim id="halfWakeUp" path="halfWakeUp" delay=".1"/>
+    
+    <Loop id="spin" path="spin" delay="0.1" />
+    <Loop id="shaking" path="shaking" delay="0.1" />
+    <Loop id="hug" path="hug" delay="0.08"/>
+
+    <Anim id="starMorph" path="starMorph" delay="0.06" frames="0-9" goto="starMorphIdle"/>
+    <Loop id="starMorphIdle" path="starMorph" frames="10" delay="0.06"/>
+	  
+  	<Loop id="carryTheoWalk" path="walk_carry_theo" frames="0-11" delay="0.06"/>
+  	<Anim id="carryTheoCollapse" path="walk_carry_theo" frames="12-18" delay="0.06"/>
+  	  
+  	<Anim id="tentacle_grab" path="tentacle/grab" delay="0.06" frames="0-14" goto="tentacle_grabbed"/>
+  	<Loop id="tentacle_grabbed" path="tentacle/grab" delay="0.1" frames="15-23"/>
+  	<Loop id="tentacle_pull" path="tentacle/grab" frames="24" delay="0.1"/>
+    <Loop id="tentacle_dangling" path="tentacle/grab" frames="25" delay="0.1"/>
+	  
+    <Anim id="sitDown" path="sitDown" delay="0.1" />
+
+	<Loop id="launch" path="launch" delay="0.06" frames="0-7"/>
+	<Anim id="launchRecover" path="launchRecover" delay="0.06"/>
+
+    <Metadata>
+      <Frames path="idle" hair="0,-2|0,-2|0,-2|0,-2|0,-1|0,-1|0,-1|0,-1|0,-1"/>
+      <Frames path="idleA" hair="0,-2|-1,-2:1|-1,-2:2|-1,-2:2|-1,-2:2|-1,-1:2|-1,-1:2|-1,-1:2|-1,-1:1|-1,-1:1|-1,-1|0,-1|0,-1"/>
+      <Frames path="idleB" hair="0,-2|-1,-2|-1,-2|-1,-2|-1,-2|-1,-2|-1,-2|-1,-2|-1,-2:1|-1,-2:2|-1,-2:2|-1,-2:2|-1,-2:2|-1,-2:1|-1,-2|-1,-2|-1,-2|0,-2|0,-2|0,-1|0,-1|0,-1|0,-1|0,-1"/>
+      <Frames path="idleC" hair="0,-2|-1,-2|-2,-2|-2,-2|-2,-2|-2,-2|1,-1|2,0|0,0|-1,-1|0,-1|0,-1"/>
+      
+      <Frames path="lookUp" hair="0,-2|0,-2|0,-2|0,-2|-1,-2:1|-1,-2:1|-1,-2:1|-1,-2:1|-1,-3:1"/>
+      <Frames path="edge" hair="-1,-2|-1,-2|-1,-2|-1,-1|-1,-1|-1,-1|-1,-2|0,-2|1,-2|0,-2|0,-1|-1,-1|-1,-1|-1,-2"/>
+      <Frames path="edge_back" hair="1,-2:1|1,-2:2|0,-2:2|0,-1:2|-1,-2:2|0,-2:2|1,-2:2|1,-2:2|1,-2:2|1,-2:2|2,-1|2,-1|2,-1|2,-2"/>
+      <Frames path="walk" hair="0,-2|0,-1|0,-1|0,-1|0,-3|0,-2|0,-1|0,-1|0,-1|0,-1|0,-3|0,-2"/>
+      <Frames path="push" hair="1,-2|1,-1|1,-1|1,-1|1,-2|1,-2|1,-2|1,-2|1,-1|1,-1|1,-1|1,-1|1,-2|1,-2|1,-2|1,-2"/>
+      <Frames path="runSlow" hair="1,-2|1,-1|1,-1|1,-1|1,-3|1,-2|1,-1|1,-1|1,-1|1,-1|1,-3|1,-2"/>
+      <Frames path="runFast" hair="1,-2|1,-1|1,-1|1,-1|1,-3|1,-2|1,-1|1,-1|1,-1|1,-1|1,-3|1,-2"/>
+      <Frames path="run_wind" hair="4,-1|4,0|5,0|5,0|4,-2|4,-1|4,0|4,0|4,0|4,0|4,-2|4,-1"/>
+      <Frames path="runStumble" hair="1, 1|1,2|1,2|1,0|1,-2|1,-2|1,-1|1,-1|1,-1|1,-1|1,-3|1,-2"/>
+      <Frames path="dash" hair="2,0|2,0|2,0|2,1"/>
+      <Frames path="dreamDash" hair="2,0|1,0|0,0|0,0|1,1|2,1|2,1|2,0|1,0|1,0|1,0|1,0|1,0|1,0|1,0|1,0|1,0|0,0|1,0|1,0|2,1"/>
+      <Frames path="slide" hair="0,3|0,3|0,3"/>
+      <Frames path="jumpSlow" hair="1,-3|1,-3|1,-2|0,-2"/>
+      <Frames path="jumpFast" hair="1,-3|1,-3|1,-2|0,-2"/>
+      <Frames path="tired" hair="0,1|0,2|0,1|0,0"/>
+      <Frames path="climb" hair="0,-2|0,-2|0,-2|0,-2|-1,-2|-1,-2|0,-1|1,-2:1|2,-2:2"/>
+      <Frames path="duck" hair="0,3"/>
+      <Frames path="fallPose" hair="x|x|x|x|x|x|x|x|x"/>
+      <Frames path="hug" hair="0,2"/>
+      <Frames path="sleep" hair=""/>
+      <Frames path="flip" hair="-1,-1:2|-1,-1:1|0,-1:1|1,-1:0|1,-1:0|1,0:0|2,0:0|2,0:0|2,0:0"/>
+      <Frames path="faint" hair="0,1|0,1|0,1|0,1|1,1|2,1|2,2|5,5|6,8|6,7"/>
+      <Frames path="fainted" hair="6,7"/>
+      <Frames path="dangling" hair="0,-2|0,-2|0,-2|0,-2|-1,-2|-1,-2|-1,-2|-1,-2|-1,-2|-1,-2"/>
+      <Frames path="shaking" hair="0,-1"/>
+
+      <Frames path="idle_carry" hair="0,-2|0,-2|0,-2|0,-2|0,-1|0,-1|0,-1|0,-1|0,-1" carry="-1,-1,-1,0,0,0,0,0,-1"/>
+      <Frames path="jump_carry" hair="1,-3|1,-3|1,-2|0,-2" carry="-3,-3,-1,-1"/>
+      <Frames path="run_carry" hair="1,-2|1,-1|1,-1|1,-1|1,-3|1,-2|1,-1|1,-1|1,-1|1,-1|1,-3|1,-2" carry="-1,0,0,0,-3,-2,-1,0,0,0,-3,-1"/>
+      <Frames path="pickup" hair="2,0|1,-1|0,-2|0,-2|0,-2"/>
+      <Frames path="throw" hair="0,-3|2,-2|2,-2|1,-2"/>
+
+      <Frames path="swim" hair="0,-2|0,-2|0,-2|0,-2|0,-2|0,-2|0,-3|0,-3|0,-2|0,-2|0,-2|0,-2|1,-1|1,-1|1,0|1,0|1,0|1,0"/>
+      <Frames path="fall" hair="1,-2|1,-2|1,-2|1,-2|1,-2|1,-2|1,-2|1,-2"/>
+      <Frames path="bigFall" hair="1,-2|1,-2|1,-2|1,-2|1,-2|1,-2|1,-2|1,-2|1,-2|1,-2|1,-2"/>
+      
+      <Frames path="startStarFly" hair="0,-2|0,-2|0,-2|0,-2"/>
+      <Frames path="starFly" hair="0,3"/>
+      <Frames path="starMorph" hair="0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0|0,0"/>
+
+    </Metadata>
+  </player>
+
+  <player_no_backpack copy="player" path="characters/player_no_backpack/">
+    <Anim id="idle" path="idle" delay="0.1" goto="idle"/>
+    <Anim id="idleA" path="idleA" delay="0.12" goto="idle"/>
+    <Anim id="idleB" path="idleB" delay="0.16" goto="idle"/>
+    <Anim id="idleC" path="idleC" delay="0.11" goto="idle"/>
+    
+    <Anim id="roll" path="roll" frames="0-12" delay="0.05"/>
+    <Anim id="rollGetUp" path="roll" frames="12-16" delay=".1" goto="downed"/>
+    <Loop id="downed" path="sitDown" delay="0.8" frames="17"/>
+
+    <Metadata length="4" old="false">
+      <Frames path="idleA" hair="0,-2|0,-2|0,-2|0,-3|0,-3|0,-3|0,-3|0,-3|0,-3|0,-3|0,-3|0,-2"/>
+      <Frames path="idleB" hair="0,-2|0,-2|0,-2|0,-2|0,-2|0,-2|0,-3|0,-3|0,-3|0,-3|0,-3|0,-3|0,-3|0,-3|0,-3"/>
+      <Frames path="idleC" hair="0,-2|0,-1|0,-3|0,-2|0,-1|0,-3| 0,-1|0,-3|0,-1|0,-2|0,-3|0,-1|0,-2|0,-2|0,-2"/>
+    </Metadata>
+    
+  </player_no_backpack>
+  
+  <player_level_up path="characters/player/levelUp/" start="levelUp">
+    <Justify x=".5" y="1" />
+    <Anim id="levelUp" path="levelUp" delay=".06"/>
+  </player_level_up>
+  
+  <player_sweat path="characters/player/sweat/" start="idle">
+    <Justify x=".5" y="1" />
+    
+    <Loop id="idle" path="idle" />
+    <Anim id="climb" path="climb" frames="0,1" delay=".1" goto="climbLoop" />
+    <Loop id="climbLoop" path="climb" frames="2-7" delay=".1" />
+    <Loop id="still" path="still" delay=".1" />
+    <Anim id="jump" path="jump" delay=".1" goto="idle" />
+    <Loop id="danger" path="danger" delay=".05" />
+  </player_sweat>
+
+  <player_badeline copy="player" path="characters/player_badeline/">
+    <Anim id="roll" path="roll" frames="0-12" delay="0.05"/>
+    <Anim id="rollGetUp" path="roll" frames="12-15" delay=".1" goto="downed"/>
+    <Loop id="downed" path="sitDown" delay="0.8" frames="15"/>
+  </player_badeline>
+  <player_playback copy="player" path="characters/player_playback/"/>
+  
+  <!-- NPCs -->
+
+  <badeline path="characters/badeline/">
+    <Justify x=".5" y="1" />
+    
+    <Loop id="idle" path="idle" delay="0.1" />
+    <Loop id="idleA" path="idle" delay="0.1" />
+    <Loop id="idleB" path="idle" delay="0.1" />
+    <Loop id="idleC" path="idle" delay="0.1" />
+    <Anim id="lookUp" path="lookUp" delay="0.1" />
+    <Loop id="walk" path="walk" delay="0.06" />
+    <Loop id="push" path="push" delay="0.1" />
+    <Anim id="runSlow" path="runSlow" delay="0.07" goto="runFast" />
+    <Loop id="runFast" path="runFast" delay="0.05" />
+    <Anim id="runStumble" path="runStumble" delay="0.05" frames="10-11,0-11" goto="runFast"/>
+    <Loop id="dash" path="dash" delay="0.06" />
+    <Anim id="dreamDashIn" path="dreamDash" frames="0-3" delay="0.04" goto="dreamDashLoop"/>
+    <Loop id="dreamDashLoop" path="dreamDash" frames="4-16" delay="0.03" />
+    <Anim id="dreamDashOut" path="dreamDash" frames="17-20" delay="0.04" />
+    <Loop id="slide" path="slide" delay="0.03" />
+    <Loop id="jumpSlow" path="jumpSlow" delay="0.1" frames="0,1" />
+    <Loop id="jumpFast" path="jumpFast" delay="0.1" frames="0,1" />
+    <Anim id="fallSlow" path="jumpSlow" delay="0.1" frames="2,3" />
+    <Anim id="fallFast" path="jumpFast" delay="0.1" frames="2,3" />
+    <Loop id="tired" path="tired" delay="0.18" />
+    <Loop id="wallslide" path="climb" frames="0" />
+    <Anim id="climbLookBackStart" path="climb" delay="0.08" frames="6,7,8" goto="climbLookBack" />
+    <Loop id="climbLookBack" path="climb" frames="8" />
+    <Loop id="climbup" path="climb" delay="0.04" frames="0-5" />
+    <Loop id="duck" path="duck" delay="0" frames="0" />
+    <Loop id="edge" path="edge" delay="0.25" frames="0-13" />
+    <Anim id="sleep" path="sleep" delay="0.1" frames="0-10,10*5,11-23" />
+    <Anim id="faint" path="faint" delay="0.1" frames="0-10" goto="fainted" />
+    <Loop id="fainted" path="faint" delay="0.1" frames="10" />
+    <Anim id="flip" path="flip" delay="0.04" frames="0-7" goto="runFast"/>
+    <Loop id="skid" path="flip" delay="0.04" frames="8"/>
+    <Loop id="dangling" path="dangling" delay="0.11" frames="0-9" />
+    <Anim id="spawn" path="spawn" delay="0.08" frames="0*3,0-9" goto="fallSlow"/>
+    <Loop id="laugh" path="laugh" delay="0.04" />
+    <Loop id="angry" path="angry" delay="0.04" />
+    <Anim id="boost" path="boost" delay="0.05"/>
+
+    <Loop id="pretendDead" path="sleep" delay="0" frames="23" />
+    <Loop id="spin" path="spin" delay="0.1" />
+    <Loop id="hug" path="hug" delay="0.08"/>
+    
+    <Metadata>
+      <Frames path="idle" hair="0,-2|0,-2|0,-2|0,-2|0,-1|0,-1|0,-1|0,-1|0,-1"/>
+      <Frames path="lookUp" hair="0,-2|0,-2|0,-2|0,-2|-1,-1:1|-1,-2:1|-1,-2:1|-1,-2:1|-1,-3:1"/>
+      <Frames path="edge" hair="-1,-2|-1,-2|-1,-2|-1,-1|-1,-1|-1,-1|-1,-2|0,-2|1,-2|0,-2|0,-1|-1,-1|-1,-1|-1,-2"/>
+      <Frames path="walk" hair="0,-2|0,-1|0,-1|0,-1|0,-3|0,-2|0,-1|0,-1|0,-1|0,-1|0,-3|0,-2"/>
+      <Frames path="push" hair="1,-2|1,-1|1,-1|1,-1|1,-3|1,-3|1,-3|1,-2|1,-1|1,-1|1,-1|1,-1|1,-3|1,-2|1,-2|1,-2"/>
+      <Frames path="runSlow" hair="1,-2|1,-1|1,-1|1,-1|1,-3|1,-2|1,-1|1,-1|1,-1|1,-1|1,-3|1,-2"/>
+      <Frames path="runFast" hair="1,-2|1,-1|1,-1|1,-1|1,-3|1,-2|1,-1|1,-1|1,-1|1,-1|1,-3|1,-2"/>
+      <Frames path="runStumble" hair="1, 1|1,2|1,2|1,0|1,-2|1,-2|1,-1|1,-1|1,-1|1,-1|1,-3|1,-2"/>
+      <Frames path="dash" hair="2,0|2,0|2,0|2,1"/>
+      <Frames path="dreamDash" hair="2,0|1,0|0,0|0,0|1,1|2,1|2,1|2,0|1,0|1,0|1,0|1,0|1,0|1,0|1,0|1,0|1,0|0,0|1,0|1,0|2,1"/>
+      <Frames path="slide" hair="0,3|0,3|0,3"/>
+      <Frames path="jumpSlow" hair="1,-3|1,-3|1,-2|0,-2"/>
+      <Frames path="jumpFast" hair="1,-3|1,-3|1,-2|0,-2"/>
+      <Frames path="tired" hair="0,1|0,2|0,1|0,0"/>
+      <Frames path="climb" hair="0,-2|0,-2|0,-2|0,-2|-1,-2|-1,-2|0,-1|1,-2:1|2,-2:2"/>
+      <Frames path="duck" hair="0,3"/>
+      <Frames path="sleep" hair=""/>
+      <Frames path="flip" hair="-1,-1:2|-1,-1:1|0,-1:1|1,-1:0|1,-1:0|1,0:0|2,0:0|2,0:0|2,0:0"/>
+      <Frames path="dangling" hair="0,-2|0,-2|0,-2|0,-2|-1,-2|-1,-2|-1,-2|-1,-2|-1,-2|-1,-2"/>
+      <Frames path="faint" hair="0,1|0,1|0,1|0,1|1,1|2,1|2,2|5,5|6,8|6,7"/>
+      <Frames path="fainted" hair="6,7"/>
+      <Frames path="spawn" hair="x|x|x|x|x|x|x|x|1,-6|1,-6|1,-5|1,-5|1,-4|1,-4|1,-3|1,-3|0,-2"/>
+      <Frames path="laugh" hair="0,-3|0,-3|0,-3|0,-2|0,-2|0,-2"/>
+      <Frames path="angry" hair="-1,-3|-1,-3|-1,-3|-1,-2|-1,-2|-1,-2"/>
+      <Frames path="boost" hair="0,-2|0,-2|0,-2|0,-2|0,0|0,-6|0,-3|0,-1|0,-1|0,-2"/>
+      <Frames path="hug" hair="0,2"/>
+    </Metadata>
+  </badeline>
+
+  <bird path="characters/bird/" start="idle">
+    <Origin x="16" y="24"/>
+
+    <Anim id="idle" path="crow" delay="1" frames="0" goto="idle,peck"/>
+    <Anim id="idleRarePeck" path="crow" delay="1" frames="0" goto="idleRarePeck,idleRarePeck,idleRarePeck,idleRarePeck,peckRare"/>
+    <Anim id="croak" path="crow" delay="0.08" frames="0-13" goto="idle"/>
+    <Anim id="peck" path="crow" delay="0.08" frames="14-26" goto="idle"/>
+    <Anim id="peckRare" path="crow" delay="0.08" frames="14-26" goto="idleRarePeck"/>
+    <Anim id="jump" path="crow" delay="0.08" frames="29-35" goto="fly"/>
+    <Loop id="fly" path="fly" delay="0.1" frames="3,0-2"/>
+    <Loop id="dash" path="dash" delay="0.1" frames="0"/>
+    <Loop id="fall" path="crow" delay="0.07" frames="42-44" />
+    <Anim id="sleep" path="crow" delay="0.15" frames="45-48" />
+    <Loop id="hover" path="hover" delay="0.10" frames="0-5" />
+    <Loop id="hoverStressed" path="hoverStressed" delay="0.07" frames="0-5" />
+    <Loop id="flyup" path="flyup" delay="0.10" frames="0-15" />
+    <Loop id="flyupIdle" path="flyup" delay="0.10" frames="10-15" />
+    <Anim id="flyupRoll" path="flyup" delay="0.10" frames="0-15" goto="flyupIdle" />
+    <Anim id="throw" path="throw" delay="0.08" frames="0-6" goto="hover"/>
+    <Anim id="hurt" path="hurt" delay="0.06" frames="0-21" />
+    <Anim id="recover" path="recover" delay="0.085" frames="0-7" />
+    
+    <Loop id="hold" path="hold" delay="0.1" frames="0-5"/>
+  </bird>
+  
+  <granny path="characters/oldlady/" start="idle">
+    <Justify x=".5" y="1" />
+
+    <Loop id="idle" path="idle" delay="0.15" />
+    <Loop id="walk" path="walk" delay="0.1" />
+    <Loop id="laugh" path="laugh" delay="0.1" />
+    <Anim id="airQuotes" path="quotes" delay="0.16" frames="0-11" goto="pointCane"/>
+    <Loop id="pointCane" path="quotes" delay="0.16" frames="12-28" />
+  </granny>
+  
+  <theo path="characters/theo/" start="idle">
+    <Justify x=".5" y="1" />
+
+    <Loop id="idle" path="theo" delay="0.1" frames="0-9" />
+    <Loop id="idleEdge" path="theo" delay="0.1" frames="140-143" />
+
+    <Anim id="sitDown" path="theo" delay="0.1" frames="176-182"/>
+    <Anim id="sleep" path="theo" delay="0.1" frames="183-188"/>
+    <Anim id="wakeup" path="theo" delay="0.1" frames="188-182"/>
+    <Anim id="comfortStart" path="theo" delay="0.1" frames="168-172" goto="comfort"/>
+    <Loop id="comfort" path="theo" delay="0.1" frames="173-175" />
+    <Anim id="comfortRecover" path="theo" delay="0.1" frames="172-168" goto="idle"/>
+
+    <Loop id="falling" path="theo" delay="0.1" frames="144-147" />
+    <Anim id="hitGround" path="theo" delay="0.1" frames="148-153" goto="idleGround"/>
+    <Loop id="idleGround" path="theo" delay="0.1" frames="154" />
+    <Loop id="talkGround" path="theo" delay="0.25" frames="154-156" />
+    <Anim id="recoverGround" path="theo" delay="0.1" frames="157-167" goto="idle" />
+
+    <Loop id="walk" path="theo" delay="0.1" frames="50-59" />
+    <Loop id="run" path="run" delay="0.08" frames="0-7" />
+    <Anim id="yolo" path="theo" delay="0.1" frames="10-13" />
+    <Anim id="yoloEnd" path="theo" delay="0.1" frames="13-17" goto="idle"/>
+    <Anim id="think" path="theo" delay="0.12" frames="18-33" goto="idle"/>
+    <Anim id="lookBack" path="theo" delay="0.11" frames="34-42,42*10,42-49" goto="idle"/>
+    <Anim id="duck" path="theo" delay="0.10" frames="60-67" goto="crawl"/>
+    <Loop id="crawl" path="theo" delay="0.10" frames="68-74" />
+    <Anim id="givePhone" path="theo" delay="0.11" frames="75-80" />
+    <Anim id="givePhoneFinish" path="theo" delay="0.11" frames="80-84" goto="idle"/>
+    <Anim id="getPhone" path="theo" delay="0.11" frames="86-92" goto="usePhone"/>
+    <Loop id="usePhone" path="theo" delay="0.10" frames="93-100" />
+    <Anim id="goToVent" path="theo" delay="0.10" frames="101-105" goto="pullVent"/>
+    <Loop id="pullVent" path="theo" delay="0.10" frames="106-109"/>
+    <Anim id="fallVent" path="theo" delay="0.10" frames="109*8,110-113,114*2,115-123" goto="idle"/>
+    <Anim id="holdOutPhone" path="theo" delay="0.10" frames="124-131"/>
+    <Anim id="takeSelfieImmediate" path="theo" delay="0.10" frames="131-139" goto="idle"/>
+    <Anim id="takeSelfie" path="theo" delay="0.10" frames="124-139" goto="idle"/>
+    <Loop id="tired" path="tired" delay="0.15" frames="0-5"/>
+    
+    <Anim id="alert" path="alert" delay="0.08"/>
+  </theo>
+
+  <theo_crystal path="characters/theoCrystal/" start="idle">
+    <Origin x="32" y="42"/>
+    <Loop id="idle" path="idle" delay="0.08"/>
+    <Anim id="shatter" path="shatter" delay="0.08" goto="shattered"/>
+    <Loop id="shattered" path="shatter" frames="16" delay="0.08"/>
+  </theo_crystal>
+
+  <oshiro path="characters/oshiro/" start="idle">
+    <Justify x=".5" y=".667" />
+
+    <Loop id="idle" path="oshiro" delay="0.08" frames="31-41" />
+    <Loop id="side" path="oshiro" delay="0.1" frames="87-93" />
+    <Loop id="move" path="oshiro" delay="0.06" frames="42-52" />
+    <Anim id="appear" path="oshiro" delay="0.08" frames="0-30" goto="idle"/>
+    
+    <Loop id="sweeping" path="sweep" delay="0.08" frames="0-6"/>
+    <Anim id="putBroomAway" path="sweep" delay="0.08" frames="7-18" goto="idle"/>
+    
+    <Anim id="fall" path="oshiro" delay="0.07" frames="73-81" goto="idle_ground"/>
+    <Anim id="recover" path="oshiro" delay="0.08" frames="94-101" goto="idle"/>
+    <Loop id="idle_ground" path="oshiro" delay="0.09" frames="82-86" />
+  </oshiro>
+  
+  <oshiro_boss path="characters/oshiro/" start="transformStart">
+    <Justify x=".5" y=".5" />
+
+    <Anim id="transformStart" path="oshiro" delay="0.07" frames="53-57" goto="transformCharge"/>
+    <Loop id="transformCharge" path="oshiro" delay="0.07" frames="58-60"/>
+    <Anim id="transformFinish" path="oshiro" delay="0.07" frames="61-72" goto="idle"/>
+    <Anim id="transformBack" path="boss" delay="0.06" frames="38-53,53*4,53-67"/>
+    <Anim id="respawn" path="boss" delay="0.06" frames="0-12" goto="idle"/>
+
+    <Loop id="idle" path="boss" delay="0.09" frames="13-20" />
+    <Anim id="charge" path="boss" delay="0.08" frames="21-33"  goto="dash"/>
+    <Loop id="dash" path="boss" delay="0.06" frames="34-37"/>
+    <Anim id="hurt" path="boss" delay="0.04" frames="68-72"/>
+  </oshiro_boss>
+  
+  <oshiro_boss_lightning path="characters/oshiro/" start="once">
+    <Justify x="0" y=".5" />
+    <Anim id="once" path="lightning" delay="0.03" frames="0-6"/>
+  </oshiro_boss_lightning>
+  
+  
+  <badeline_boss path="characters/badelineBoss/" start="idle">
+    <Justify x="0.5" y=".64" />
+    <Loop id="idle" path="boss" delay="0.06" frames="0-23"/>
+    
+    <Loop id="scaredIdle" path="scared" delay="0.06" frames="0-19"/>
+    <Anim id="scaredTransition" path="scared" delay="0.1" frames="20-29" goto="calm"/>
+    <Loop id="calm" path="scared" delay="0.06" frames="30"/>
+    <Anim id="lookUp" path="scared" delay="0.08" frames="30-30" goto="lookingUp"/>
+    <Loop id="lookingUp" path="scared" delay="0.08" frames="35"/>
+    
+    <Anim id="attack1Begin" path="boss" delay="0.06" frames="24-29" goto="attack1Loop"/>
+    <Anim id="attack1Loop" path="boss" delay="0.06" frames="30-36" goto="attack1Loop"/>
+    <Anim id="attack1Recoil" path="boss" delay="0.06" frames="40-45" goto="idle"/>
+
+    <Anim id="attack2Begin" path="charge" delay="0.06" frames="0-17" goto="attack2Aim"/>
+    <Anim id="attack2Aim" path="charge" delay="0.06" frames="18-28" goto="attack2Aim"/>
+    <Anim id="attack2Lock" path="charge" delay="0.06" frames="29-39" goto="attack2Lock"/>
+    <Anim id="attack2Recoil" path="charge" delay="0.06" frames="40-45" goto="idle"/>
+   
+    <Anim id="getHit" path="hit" delay="0.06" frames="0-9" goto="star"/>
+    <Loop id="star" path="hit" delay="0.06" frames="10-15"/>
+    <Anim id="recoverHit" path="hit" delay="0.06" frames="16-19" goto="idle"/>
+  </badeline_boss>
+
+  <badeline_projectile path="characters/badelineBoss/" start="charge">
+    <Justify x=".5" y=".5" />
+    <Anim id="charge" path="projectile" delay="0.06" frames="0-3"  goto="loop"/>
+    <Loop id="loop" path="projectile" delay="0.06" frames="4-12"/>
+  </badeline_projectile>
+  <badeline_beam path="characters/badelineBoss/" start="charge">
+    <Justify x="0" y=".5" />
+    <Loop id="charge" path="beam" delay="0.06" frames="0-13"/>
+    <Anim id="lock" path="beam" delay="0.03" frames="14-25"/>
+    <Anim id="shoot" path="beam" delay="0.04" frames="26-36"/>
+  </badeline_beam>
+
+  <badeline_beam_start path="characters/badelineBoss/" start="shoot">
+    <Justify x="0" y=".5" />
+    <Anim id="shoot" path="beamStart" delay="0.06"/>
+  </badeline_beam_start>
+
+  <!-- Collectables -->
+
+  <strawberry path="collectables/strawberry/" start="idle">
+    <Center />
+    
+    <Loop id="idle" path="normal" delay=".1" frames="0-6,0-6,0-6,0-6,0-7" />
+    <Loop id="noFlash" path="normal" delay=".1" frames="0-6"/>
+    <Anim id="collect" path="normal" delay=".07" frames="7-11"/>
+    <Loop id="flap" path="wings" delay=".08" frames="0-8,0-8,0-7,9" />
+	  
+    <Anim id="fade0" path="normal" delay=".08" frames="12-14,14*10,15-19"/>
+    <Anim id="fade1" path="normal" delay=".07" frames="20-22,22*10,23-26"/>
+    <Anim id="fade2" path="normal" delay=".07" frames="28-30,30*10,31-34"/>
+    <Anim id="fade3" path="normal" delay=".07" frames="36-38,38*10,39-42"/>
+    <Anim id="fade4" path="normal" delay=".07" frames="44-46,46*10,47-50"/>
+	  <Anim id="fade5" path="normal" delay=".07" frames="52,53,54,53,54,53,54,53,54,53,54,53,54-59"/>
+	  <Anim id="fade_wow" path="wow/normal" delay=".1" frames="52-66"/>
+  </strawberry>
+
+  <progberry path="collectables/progberry/strawberry/" start="idle">
+    <Center />
+
+    <Loop id="idle" path="normal" delay=".1" frames="0-6,0-6,0-6,0-6,0-7" />
+    <Loop id="noFlash" path="normal" delay=".1" frames="0-6"/>
+    <Anim id="collect" path="normal" delay=".07" frames="7-11"/>
+    <Loop id="flap" path="wings" delay=".08" frames="0-8,0-8,0-7,9" />
+	  
+    <Anim id="fade0" path="normal" delay=".08" frames="12-14,14*10,15-19"/>
+    <Anim id="fade1" path="normal" delay=".07" frames="20-22,22*10,23-26"/>
+    <Anim id="fade2" path="normal" delay=".07" frames="28-30,30*10,31-34"/>
+    <Anim id="fade3" path="normal" delay=".07" frames="36-38,38*10,39-42"/>
+    <Anim id="fade4" path="normal" delay=".07" frames="44-46,46*10,47-50"/>
+	  <Anim id="fade5" path="normal" delay=".07" frames="52,53,54,53,54,53,54,53,54,53,54,53,54-59"/>
+	  <Anim id="fade_wow" path="wow/normal" delay=".1" frames="52-66"/>
+  </progberry>
+
+  <fillerberry path="collectables/fillerberry/strawberry/" start="idle">
+    <Center />
+    
+    <Loop id="idle" path="normal" delay=".1" frames="0-6,0-6,0-6,0-6,0-7" />
+    <Loop id="noFlash" path="normal" delay=".1" frames="0-6"/>
+    <Anim id="collect" path="normal" delay=".07" frames="7-11"/>
+    <Loop id="flap" path="wings" delay=".08" frames="0-8,0-8,0-7,9" />
+	  
+    <Anim id="fade0" path="normal" delay=".08" frames="12-14,14*10,15-19"/>
+    <Anim id="fade1" path="normal" delay=".07" frames="20-22,22*10,23-26"/>
+    <Anim id="fade2" path="normal" delay=".07" frames="28-30,30*10,31-34"/>
+    <Anim id="fade3" path="normal" delay=".07" frames="36-38,38*10,39-42"/>
+    <Anim id="fade4" path="normal" delay=".07" frames="44-46,46*10,47-50"/>
+	  <Anim id="fade5" path="normal" delay=".07" frames="52,53,54,53,54,53,54,53,54,53,54,53,54-59"/>
+	  <Anim id="fade_wow" path="wow/normal" delay=".1" frames="52-66"/>
+  </fillerberry>
+
+  <usefulberry path="collectables/usefulberry/strawberry/" start="idle">
+    <Center />
+    
+    <Loop id="idle" path="normal" delay=".1" frames="0-6,0-6,0-6,0-6,0-7" />
+    <Loop id="noFlash" path="normal" delay=".1" frames="0-6"/>
+    <Anim id="collect" path="normal" delay=".07" frames="7-11"/>
+    <Loop id="flap" path="wings" delay=".08" frames="0-8,0-8,0-7,9" />
+	  
+    <Anim id="fade0" path="normal" delay=".08" frames="12-14,14*10,15-19"/>
+    <Anim id="fade1" path="normal" delay=".07" frames="20-22,22*10,23-26"/>
+    <Anim id="fade2" path="normal" delay=".07" frames="28-30,30*10,31-34"/>
+    <Anim id="fade3" path="normal" delay=".07" frames="36-38,38*10,39-42"/>
+    <Anim id="fade4" path="normal" delay=".07" frames="44-46,46*10,47-50"/>
+	  <Anim id="fade5" path="normal" delay=".07" frames="52,53,54,53,54,53,54,53,54,53,54,53,54-59"/>
+	  <Anim id="fade_wow" path="wow/normal" delay=".1" frames="52-66"/>
+  </usefulberry>
+
+  <trapberry path="collectables/trapberry/strawberry/" start="idle">
+    <Center />
+    
+    <Loop id="idle" path="normal" delay=".1" frames="0-6,0-6,0-6,0-6,0-7" />
+    <Loop id="noFlash" path="normal" delay=".1" frames="0-6"/>
+    <Anim id="collect" path="normal" delay=".07" frames="7-11"/>
+    <Loop id="flap" path="wings" delay=".08" frames="0-8,0-8,0-7,9" />
+	  
+    <Anim id="fade0" path="normal" delay=".08" frames="12-14,14*10,15-19"/>
+    <Anim id="fade1" path="normal" delay=".07" frames="20-22,22*10,23-26"/>
+    <Anim id="fade2" path="normal" delay=".07" frames="28-30,30*10,31-34"/>
+    <Anim id="fade3" path="normal" delay=".07" frames="36-38,38*10,39-42"/>
+    <Anim id="fade4" path="normal" delay=".07" frames="44-46,46*10,47-50"/>
+	  <Anim id="fade5" path="normal" delay=".07" frames="52,53,54,53,54,53,54,53,54,53,54,53,54-59"/>
+	  <Anim id="fade_wow" path="wow/normal" delay=".1" frames="52-66"/>
+  </trapberry>
+
+  <ghostberry path="collectables/ghostberry/" start="idle">
+    <Center />
+
+    <Loop id="idle" path="idle" delay=".08" frames="0-6,0-6,0-6,0-6,0-7" />
+    <Anim id="collect" path="idle" delay=".07" frames="7-11"/>
+    <Loop id="flap" path="wings" delay=".08" frames="0-8,0-8,0-7,9" />
+  </ghostberry>
+
+  <ghostprogberry path="collectables/progberry/ghostberry/" start="idle">
+    <Center />
+
+    <Loop id="idle" path="idle" delay=".08" frames="0-6,0-6,0-6,0-6,0-7" />
+    <Anim id="collect" path="idle" delay=".07" frames="7-11"/>
+    <Loop id="flap" path="wings" delay=".08" frames="0-8,0-8,0-7,9" />
+  </ghostprogberry>
+	
+  <goldberry path="collectables/goldberry/" start="idle">
+    <Center />
+
+    <Loop id="idle" path="idle" delay=".08" frames="0-5,0-5,0-5,0-5,0-7" />
+    <Anim id="collect" path="idle" delay=".07" frames="7-11"/>
+    <Loop id="flap" path="wings" delay=".08" frames="0-8,0-8,0-7,9" />
+  </goldberry>
+	
+  <fillergoldberry path="collectables/fillerberry/goldberry/" start="idle">
+    <Center />
+
+    <Loop id="idle" path="gold" delay=".08" frames="0-5,0-5,0-5,0-5,0-7" />
+    <Anim id="collect" path="gold" delay=".07" frames="7-11"/>
+    <Loop id="flap" path="goldWings" delay=".08" frames="0-8,0-8,0-7,9" />
+  </fillergoldberry>
+	
+  <usefulgoldberry path="collectables/usefulberry/goldberry/" start="idle">
+    <Center />
+
+    <Loop id="idle" path="gold" delay=".08" frames="0-5,0-5,0-5,0-5,0-7" />
+    <Anim id="collect" path="gold" delay=".07" frames="7-11"/>
+    <Loop id="flap" path="goldWings" delay=".08" frames="0-8,0-8,0-7,9" />
+  </usefulgoldberry>
+	
+  <trapgoldberry path="collectables/trapberry/goldberry/" start="idle">
+    <Center />
+
+    <Loop id="idle" path="gold" delay=".08" frames="0-5,0-5,0-5,0-5,0-7" />
+    <Anim id="collect" path="gold" delay=".07" frames="7-11"/>
+    <Loop id="flap" path="goldWings" delay=".08" frames="0-8,0-8,0-7,9" />
+  </trapgoldberry>
+
+	<goldghostberry path="collectables/ghostgoldberry/" start="idle">
+		<Center />
+
+		<Loop id="idle" path="idle" delay=".08" frames="0-6,0-6,0-6,0-6,0-7" />
+		<Anim id="collect" path="idle" delay=".07" frames="7-11"/>
+		<Loop id="flap" path="wings" delay=".08" frames="0-8,0-8,0-7,9" />
+	</goldghostberry>
+
+  <moonberry path="collectables/moonberry/" start="idle">
+    <Center />
+    
+    <Loop id="idle" path="normal" delay=".1" frames="0-47" />
+    <Anim id="collect" path="normal" delay=".07" frames="48-51"/>
+  </moonberry>
+
+  <moonghostberry path="collectables/moonberry/" start="idle">
+    <Center />
+    
+    <Loop id="idle" path="ghost" delay=".1" frames="0-47" />
+    <Anim id="collect" path="ghost" delay=".07" frames="48-51"/>
+  </moonghostberry>
+
+  <cassette path="collectables/cassette/" start="idle">
+    <Center />
+	<Anim id="idle" path="idle" delay="0.07" frames="0-12,0*30" goto="pulse"/>
+	<Anim id="spin" path="idle" delay="0.07" frames="0-12" goto="spin"/>
+	<Anim id="pulse" path="idle" delay="0.04" frames="13-18" goto="idle"/>
+  </cassette>
+	
+  <cassetteGhost path="collectables/cassette/" start="idle">
+    <Center />
+	<Anim id="idle" path="ghost" delay="0.07" frames="0-12,0*30" goto="pulse"/>
+	<Anim id="spin" path="ghost" delay="0.07" frames="0-12" goto="spin"/>
+	<Anim id="pulse" path="ghost" delay="0.04" frames="13-18" goto="idle"/>
+  </cassetteGhost>
+	
+  <strawberrySeed path="collectables/strawberry/">
+    <Center />
+
+    <Loop id="idle" path="seed" frames="0*19,1" delay="0.1" />
+    <Loop id="noFlash" path="seed" frames="0" />
+  </strawberrySeed>
+	
+  <ghostberrySeed path="collectables/ghostberry/">
+    <Center />
+
+    <Loop id="idle" path="seed" frames="0*19,1" delay="0.1" />
+    <Loop id="noFlash" path="seed" frames="0" />
+  </ghostberrySeed>
+	
+  <goldberrySeed path="collectables/goldberry/">
+    <Center />
+
+    <Loop id="idle" path="seed" frames="0*19,1" delay="0.1" />
+    <Loop id="noFlash" path="seed" frames="0" />
+  </goldberrySeed>
+
+	<heartgem0 path="collectables/heartGem/0/">
+		<Center />
+
+		<Loop id="idle" path="" frames="0" />
+		<Loop id="spin" path="" frames="0*10,1-13" delay="0.1"/>
+		<Loop id="fastspin" path="" delay="0.1"/>
+	</heartgem0>
+
+	<heartgem1 path="collectables/heartGem/1/">
+		<Center />
+
+		<Loop id="idle" path="" frames="0" />
+		<Loop id="spin" path="" frames="0*10,1-13" delay="0.1"/>
+		<Loop id="fastspin" path="" delay="0.1"/>
+	</heartgem1>
+
+	<heartgem2 path="collectables/heartgem/2/">
+		<Center />
+
+		<Loop id="idle" path="" frames="0" />
+		<Loop id="spin" path="" frames="0*10,1-13" delay="0.1"/>
+		<Loop id="fastspin" path="" delay="0.1"/>
+	</heartgem2>
+
+  <heartgem3 path="collectables/heartgem/3/">
+    <Center />
+
+    <Loop id="idle" path="" frames="0" />
+    <Loop id="spin" path="" frames="0*10,1-13" delay="0.1"/>
+    <Loop id="fastspin" path="" delay="0.1"/>
+  </heartgem3>
+	
+	<heartGemWhite path="collectables/heartGem/">
+		<Center />
+
+		<Loop id="idle" path="white" frames="0" />
+		<Loop id="spin" path="white" frames="0*10,1-13" delay="0.1"/>
+		<Loop id="fastspin" path="white" delay="0.1"/>
+	</heartGemWhite>
+	
+	<heartGemGhost path="collectables/heartGem/">
+		<Center />
+
+		<Loop id="idle" path="ghost" frames="0" />
+		<Loop id="spin" path="ghost" frames="0*10,1-13" delay="0.1"/>
+		<Loop id="fastspin" path="ghost" delay="0.1"/>
+	</heartGemGhost>
+
+  <!-- Objects -->
+
+  <campfire path="objects/campfire/" start="idle">
+    <Justify x=".5" y="1" />
+    
+    <Anim id="idle" path="fire" delay="0.1" frames="0"/>
+    <Anim id="start" path="fire" delay="0.1" frames="0-6" goto="burn"/>
+    <Loop id="burn" path="fire" delay="0.09" frames="7-15"/>
+    <Anim id="startDream" path="fire" delay="0.1" frames="0-6" goto="dreamy"/>
+    <Loop id="burnDream" path="dream" delay="0.09" frames="0-8" goto="dreamy"/>
+    <Loop id="smoking" path="smoking" delay="0.09" frames="0-7"/>
+  </campfire>
+
+  <checkpoint_highlight path="objects/checkpoint/" start="off">
+    <Justify x=".5" y="1" />
+
+    <Anim id="off" path="highlight" delay="0.08" frames="0"/>
+    <Anim id="turnOn" path="highlight" delay="0.05" goto="on"/>
+    <Loop id="on" path="highlight" delay="0.05" frames="9"/>
+  </checkpoint_highlight>
+
+  <checkpoint_flash path="objects/checkpoint/" start="flash">
+    <Justify x=".5" y="1" />
+    <Loop id="flash" path="flash" frames="7*10,0-7,7*60" delay="0.05"/>
+  </checkpoint_flash>
+
+  <payphone path="cutscenes/payphone/" start="idle">
+    <Justify x=".5" y="1" />
+    
+    <Loop id="idle" path="phone" delay="0.1" frames="0"/>
+    <Anim id="pickUp" path="phone" delay="0.08" frames="1-11"/>
+    <Loop id="talkPhone" path="phone" delay="0.08" frames="11"/>
+    <Anim id="jumpBack" path="phone" delay="0.08" frames="12-17"/>
+    <Anim id="scare" path="phone" delay="0.08" frames="18-21"/>
+    <Anim id="transform" path="phone" delay="0.08" frames="22-45" />
+    <Anim id="eat" path="phone" delay="0.08" frames="46-73,83*2,84*2,85*2,86*2,87*2,74-82"/>
+    <Loop id="monsterIdle" path="phone" delay="0.2" frames="83-87"/>
+  </payphone>
+
+  <key path="collectables/key/" start="idle">
+    <Justify x=".5" y=".5" />
+    <Loop id="idle" path="idle" delay="0.1" frames="0-13"/>
+    <Anim id="enter" path="enter" delay="0.1"/>
+  </key>
+  
+  <lockdoor_wood path="objects/door/lockdoor" start="idle">
+    <Justify x="0.5" y="0.5" />
+    <Loop id="idle" delay="0.1" frames="0"/>
+    <Anim id="open" delay="0.06" frames="0-9"/>
+    <Anim id="burst" delay="0.06" frames="10-18"/>
+  </lockdoor_wood>
+  
+  <lockdoor_temple_a path="objects/door/lockdoorTempleA" start="idle">
+    <Justify x="0.5" y="0.5" />
+    <Loop id="idle" path="" delay="0.1" frames="0"/>
+    <Anim id="open" path="" delay="0.06" frames="0-9"/>
+    <Anim id="burst" path="" delay="0.06" frames="10-18"/>
+  </lockdoor_temple_a>
+  
+  <lockdoor_temple_b path="objects/door/lockdoorTempleB" start="idle">
+    <Justify x="0.5" y="0.5" />
+    <Loop id="idle" path="" delay="0.1" frames="0"/>
+    <Anim id="open" path="" delay="0.06" frames="0-9"/>
+    <Anim id="burst" path="" delay="0.06" frames="10-18"/>
+  </lockdoor_temple_b>
+  
+  <lockdoor_moon path="objects/door/moonDoor" start="idle">
+    <Justify x="0.5" y="0.5" />
+    <Anim id="appear" path="" delay="0.05" frames="0-10"/>
+    <Loop id="idle" path="" delay="0.08" frames="11-24"/>
+    <Anim id="open" path="" delay="0.06" frames="25-32"/>
+    <Anim id="burst" path="" delay="0.06" frames="33-43"/>
+  </lockdoor_moon>
+  
+  <door path="objects/door/" start="idle">
+    <Justify x=".5" y="1" />
+
+    <Loop id="idle" path="door" delay="0.1" frames="0"/>
+    <Anim id="open" path="door" delay="0.05" frames="4,2,1" goto="close"/>
+    <Anim id="close" path="door" delay="0.05" frames="1,1,1,1,1-4" goto="idle"/>
+  </door>
+  
+  <metaldoor path="objects/door/" start="idle">
+    <Justify x=".5" y="1" />
+
+    <Loop id="idle" path="metaldoor" delay="0.1" frames="0"/>
+    <Anim id="open" path="metaldoor" delay="0.05" frames="4,2,1" goto="close"/>
+    <Anim id="close" path="metaldoor" delay="0.05" frames="1,1,1,1,1-4" goto="idle"/>
+  </metaldoor>
+
+  <ghost_door path="objects/door/" start="idle">
+    <Justify x=".5" y=".5" />
+
+    <Loop id="idle" path="ghost_door" delay="0.06" frames="0-19"/>
+    <Anim id="open" path="ghost_door" delay="0.06" frames="20-28"/>
+  </ghost_door>
+  
+  <trapdoor path="objects/door/" start="idle">
+    <Justify x="0" y="0" />
+
+    <Loop id="idle" path="trap" delay="0.1" frames="0"/>
+    <Anim id="open" path="trap" delay="0.05" frames="0,1,2,3,3,4,5,6,7"/>
+    <Anim id="open_partial" path="trap" delay="0.05" frames="0,1,2,3,4"/>
+  </trapdoor>
+
+  <glass path="objects/mirror/" start="idle">
+    <Justify x=".5" y="1" />
+    
+    <Loop id="idle" path="glassbg" delay="0.08" frames="0"/>
+    <Anim id="break" path="glassbreak" delay="0.08" frames="0-8" goto="broken"/>
+    <Loop id="broken" path="glassbreak" delay="0.08" frames="9"/>
+  </glass>  
+
+  <clutterCabinet path="objects/resortclutter/" start="idle">
+    <Justify x=".5" y="0.5" />
+    
+    <Loop id="idle" path="cabinet" delay="0.09" frames="0"/>
+    <Anim id="open" path="cabinet" delay="0.08" frames="0-2" goto="opened"/>
+    <Loop id="opened" path="cabinet" delay="0.09" frames="2-7"/>
+    <Anim id="close" path="cabinet" delay="0.08" frames="8-15" goto="idle"/>
+  </clutterCabinet>
+
+  <clutterSwitch path="objects/resortclutter/" start="idle">
+    <Justify x=".5" y="1" />
+
+    <Loop id="idle" path="clutter_button" delay="0.09" frames="0-7" />
+    <Loop id="active" path="clutter_button" delay="0.09" frames="19-27" />
+    <Anim id="break" path="clutter_button" delay="0.08" frames="8-18" goto="active"/>
+  </clutterSwitch>
+  
+  <lookout path="objects/lookout/" start="idle">
+    <Justify x=".5" y="1" />
+    
+    <Loop id="idle" path="lookout" delay="0.1" frames="5*9,6"/>
+    <Anim id="lookRight" path="lookout" delay="0.08" frames="0-4" goto="looking"/>
+    <Anim id="lookLeft" path="lookout" delay="0.08" frames="15-17,3,4" goto="looking"/>
+    <Loop id="looking" path="lookout" delay="0.08" frames="4"/>
+    <Loop id="lookingUp" path="lookout" frames="7"/>
+    <Loop id="lookingUpRight" path="lookout" frames="8"/>
+    <Loop id="lookingRight" path="lookout" frames="9"/>
+    <Loop id="lookingDownRight" path="lookout" frames="10"/>
+    <Loop id="lookingDown" path="lookout" frames="11"/>
+    <Loop id="lookingDownLeft" path="lookout" frames="12"/>
+    <Loop id="lookingLeft" path="lookout" frames="13"/>
+    <Loop id="lookingUpLeft" path="lookout" frames="14"/>
+
+    <Loop id="badeline_idle" path="badeline" delay="0.1" frames="5*9,6"/>
+    <Anim id="badeline_lookRight" path="badeline" delay="0.08" frames="0-4" goto="badeline_looking"/>
+    <Anim id="badeline_lookLeft" path="badeline" delay="0.08" frames="15-17,3,4" goto="badeline_looking"/>
+    <Loop id="badeline_looking" path="badeline" delay="0.08" frames="4"/>
+    <Loop id="badeline_lookingUp" path="badeline" frames="7"/>
+    <Loop id="badeline_lookingUpRight" path="badeline" frames="8"/>
+    <Loop id="badeline_lookingRight" path="badeline" frames="9"/>
+    <Loop id="badeline_lookingDownRight" path="badeline" frames="10"/>
+    <Loop id="badeline_lookingDown" path="badeline" frames="11"/>
+    <Loop id="badeline_lookingDownLeft" path="badeline" frames="12"/>
+    <Loop id="badeline_lookingLeft" path="badeline" frames="13"/>
+    <Loop id="badeline_lookingUpLeft" path="badeline" frames="14"/>
+
+    <Loop id="nobackpack_idle" path="nobackpack" delay="0.1" frames="5*9,6"/>
+    <Anim id="nobackpack_lookRight" path="nobackpack" delay="0.08" frames="0-4" goto="nobackpack_looking"/>
+    <Anim id="nobackpack_lookLeft" path="nobackpack" delay="0.08" frames="15-17,3,4" goto="nobackpack_looking"/>
+    <Loop id="nobackpack_looking" path="nobackpack" delay="0.08" frames="4"/>
+    <Loop id="nobackpack_lookingUp" path="nobackpack" frames="7"/>
+    <Loop id="nobackpack_lookingUpRight" path="nobackpack" frames="8"/>
+    <Loop id="nobackpack_lookingRight" path="nobackpack" frames="9"/>
+    <Loop id="nobackpack_lookingDownRight" path="nobackpack" frames="10"/>
+    <Loop id="nobackpack_lookingDown" path="nobackpack" frames="11"/>
+    <Loop id="nobackpack_lookingDownLeft" path="nobackpack" frames="12"/>
+    <Loop id="nobackpack_lookingLeft" path="nobackpack" frames="13"/>
+    <Loop id="nobackpack_lookingUpLeft" path="nobackpack" frames="14"/>
+  </lookout>
+
+  <flutterBird path="scenery/flutterbird/" start="idle">
+    <Justify x="0.5" y="1"/>
+    <Loop id="idle" path="idle" delay="0.1" frames="0"/>
+    <Loop id="fly" path="flap" delay="0.1" frames="0,1"/>
+  </flutterBird>
+  
+  <swapBlockLight path="objects/swapblock/" start="idle">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="idle" path="midBlock" delay="0.08" frames="0-3"/>
+  </swapBlockLight>
+  <swapBlockLightRed path="objects/swapblock/" start="idle">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="idle" path="midBlockRed" delay="0.08" frames="0-3"/>
+  </swapBlockLightRed>
+
+  <swapBlockLightMoon path="objects/swapblock/moon/" start="idle">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="idle" path="midBlock" delay="0.08" frames="0-3"/>
+  </swapBlockLightMoon>
+  <swapBlockLightRedMoon path="objects/swapblock/moon/" start="idle">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="idle" path="midBlockRed" delay="0.08" frames="0-3"/>
+  </swapBlockLightRedMoon>
+
+  <swapBlockPathLight path="objects/swapblock/" start="idle">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="idle" path="pathLights" delay="0.06" frames="0"/>
+    <Anim id="flash" path="pathLights" delay="0.06" frames="0-4" goto="idle"/>
+  </swapBlockPathLight>
+
+  <templegate_default path="objects/door/" start="idle">
+    <Justify x="0.5" y="0"/>
+    <Loop id="idle" path="templeDoor" delay="0.1" frames="0"/>
+    <Anim id="open" path="templeDoor" delay="0.1" frames="6-14" goto="idle"/>
+    <Anim id="hit" path="templeDoor" delay="0.08" frames="0-4" goto="idle"/>
+  </templegate_default>
+
+  <templegate_mirror path="objects/door/" start="idle">
+    <Justify x="0.5" y="0"/>
+    <Loop id="idle" path="templeDoorB" delay="0.1" frames="0"/>
+    <Anim id="open" path="templeDoorB" delay="0.1" frames="6-14" goto="idle"/>
+    <Anim id="hit" path="templeDoorB" delay="0.08" frames="0-4" goto="idle"/>
+  </templegate_mirror>
+
+  <templegate_theo path="objects/door/" start="idle">
+    <Justify x="0.5" y="0"/>
+    <Loop id="idle" path="templeDoorC" delay="0.1" frames="0"/>
+    <Anim id="open" path="templeDoorC" delay="0.1" frames="6-14" goto="idle"/>
+    <Anim id="hit" path="templeDoorC" delay="0.08" frames="0-4" goto="idle"/>
+  </templegate_theo>
+
+  <dashSwitch_default path="objects/temple/dashButton" start="idle">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="idle" path="" delay="0.08" frames="0-20"/>
+    <Loop id="pushed" path="" delay="0.08" frames="27"/>
+    <Anim id="push" path="" delay="0.07" frames="21-27" goto="pushed"/>
+  </dashSwitch_default>
+
+  <dashSwitch_mirror path="objects/temple/dashButtonMirror" start="idle">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="idle" path="" delay="0.08" frames="0-20"/>
+    <Loop id="pushed" path="" delay="0.08" frames="27"/>
+    <Anim id="push" path="" delay="0.07" frames="21-27" goto="pushed"/>
+  </dashSwitch_mirror>
+
+  <gondola path="objects/gondola/" start="idle">
+    <Loop id="idle" path="front" delay="0.1"/>
+    <Loop id="pull" path="pull" delay="0.08" frames="6-0,1,2"/>
+  </gondola>
+  
+  <booster path="objects/booster/" start="loop">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="loop" path="booster" delay="0.1" frames="0-4"/>
+    <Loop id="inside" path="booster" delay="0.1" frames="5-8"/>
+    <Loop id="spin" path="booster" delay="0.06" frames="18-25"/>
+    <Anim id="pop" path="booster" delay="0.08" frames="9-17"/>
+  </booster>
+  <boosterRed path="objects/booster/" start="loop">
+    <Justify x="0.5" y="0.5"/>
+    <Anim id="appear" path="boosterRed" delay="0.08" frames="26-34" goto="loop"/>
+    <Loop id="loop" path="boosterRed" delay="0.1" frames="0-4"/>
+    <Loop id="inside" path="boosterRed" delay="0.1" frames="5-8"/>
+    <Loop id="spin" path="boosterRed" delay="0.06" frames="18-25"/>
+    <Anim id="pop" path="boosterRed" delay="0.08" frames="9-17"/>
+  </boosterRed>
+
+  <flyFeather path="objects/flyFeather/" start="loop">
+    <Justify x="0.5" y="0.5"/>
+    <Anim id="loop" path="idle" delay="0.06" frames="0-20" goto="flash"/>
+    <Anim id="flash" path="flash" delay="0.06"  frames="0-20" goto="loop"/>
+  </flyFeather>
+
+  <glider path="objects/glider/" start="idle">
+    <Justify x="0.5" y="0.58"/>
+    <Loop id="idle" path="idle" delay="0.1"/>
+    <Loop id="held" path="held" delay="0.1"/>
+    <Anim id="fall" path="fall" delay="0.06" goto="fallLoop"/>
+    <Loop id="fallLoop" path="fallLoop" delay="0.06"/>
+    <Anim id="death" path="death" delay="0.06"/>
+  </glider>
+
+  <torch path="objects/temple/" start="off">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="off" path="torch" delay="0.1" frames="0"/>
+    <Anim id="turnOn" path="torch" delay="0.08" frames="1-3" goto="on"/>
+    <Loop id="on" path="torch" delay="0.08" frames="3-8"/>
+  </torch>
+
+  <litTorch path="objects/temple/" start="off">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="off" path="litTorch" delay="0.1" frames="0"/>
+    <Anim id="turnOn" path="litTorch" delay="0.08" frames="1-3" goto="on"/>
+    <Loop id="on" path="litTorch" delay="0.08" frames="3-8"/>
+  </litTorch>
+
+  <breakerBox path="objects/breakerBox/" start="idle">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="idle" path="idle" delay="0.1"/>
+    <Anim id="open" path="open" delay="0.06" frames="1-3" goto="opened"/>
+    <Loop id="opened" path="opened" delay="0.06"/>
+    <Anim id="break" path="break" delay="0.06"/>
+  </breakerBox>
+
+  <seeker path="characters/monsters/" start="idle">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="idle" path="predator" delay="0.08" frames="0-19"/>
+    <Loop id="search" path="predator" delay="0.08" frames="0-19,20-39"/>
+    <Anim id="spot" path="predator" delay="0.07" frames="40-43" goto="spotted"/>
+    <Loop id="spotted" path="predator" delay="0.07" frames="44-48"/>
+    <Anim id="windUp" path="predator" delay="0.07" frames="103-107" goto="attacking"/>
+    <Loop id="attacking" path="predator" delay="0.07" frames="49-53"/>
+    <Anim id="takeHit" path="predator" delay="0.07" frames="108-121" goto="stunned"/>
+    <Loop id="stunned" path="predator" delay="0.07" frames="122,123" />
+    <Loop id="pulse" path="predator" delay="0.04" frames="144-151" />
+    <Anim id="recover" path="rebirth" delay="0.07"/>
+    <Anim id="skid" path="predator" delay="0.07" frames="129-133" goto="attacking"/>
+    <Loop id="dazed" path="predator" delay="0.07" frames="134-143" />
+    
+    <Anim id="hatch" path="predator" delay="0.05" frames="75-102" goto="idle"/>
+    <Loop id="statue" path="predator" delay="0.07" frames="75" />
+
+    <Anim id="flipMouth" path="predator" delay="0.05" frames="61-63" goto="spotted"/>
+    <Anim id="flipEyes" path="predator" delay="0.05" frames="68-74" goto="search"/>
+  </seeker>
+	
+  <seekerShockWave path="characters/monsters/" start="shockwave">
+	<Center/>
+    <Anim id="shockwave" path="Shockwave" delay="0.05"/>
+  </seekerShockWave>
+
+  <cloud path="objects/clouds/" start="idle">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="idle" path="cloud" delay="0.08" frames="0"/>
+  </cloud>
+  
+  <cloudRemix path="objects/clouds/" start="idle">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="idle" path="cloudRemix" delay="0.08" frames="0"/>
+  </cloudRemix>
+
+  <cloudFragile path="objects/clouds/" start="idle">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="idle" path="fragile" delay="0.08" frames="0"/>
+    <Anim id="fade" path="fragile" delay="0.08" frames="0-5"/>
+    <Anim id="spawn" path="fragile" delay="0.06" frames="6-12"/>
+  </cloudFragile>
+
+  <cloudFragileRemix path="objects/clouds/" start="idle">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="idle" path="fragileRemix" delay="0.08" frames="0"/>
+    <Anim id="fade" path="fragileRemix" delay="0.08" frames="0-5"/>
+    <Anim id="spawn" path="fragileRemix" delay="0.06" frames="6-12"/>
+  </cloudFragileRemix>
+
+  <tentacles path="danger/tentacles" start="0">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="0" path="" delay="0.08" frames="0-5"/>
+    <Loop id="1" path="" delay="0.08" frames="6-10"/>
+    <Loop id="2" path="" delay="0.08" frames="11-16"/>
+  </tentacles>
+
+  <templeBlade path="danger/blade" start="idle">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="idle" path="" delay="0.08" frames="0"/>
+    <Anim id="spin" path="" delay="0.06" frames="1-5" goto="idle"/>
+  </templeBlade>
+
+  <moonBlade path="danger/starfish" start="idle0">
+    <Justify x="0.5" y="0.5"/>
+    <Loop id="idle0" path="" delay="0.08" frames="0"/>
+    <Anim id="spin0" path="" delay="0.06" frames="1-6" goto="idle1"/>
+    
+    <Loop id="idle1" path="" delay="0.08" frames="7"/>
+    <Anim id="spin1" path="" delay="0.06" frames="8-13" goto="idle2"/>
+    
+    <Loop id="idle2" path="" delay="0.08" frames="14"/>
+    <Anim id="spin2" path="" delay="0.06" frames="15-20" goto="idle0"/>
+  </moonBlade>
+
+  <temple_portal_curtain path="objects/temple/portal/portalcurtain" start="idle">
+    <Center/>
+    <Loop id="idle" path="" delay="0" frames="0"/>
+    <Anim id="fall" path="" delay="0.08" frames="0-7" goto="fallen"/>
+    <Loop id="fallen" path="" delay="0" frames="7"/>
+  </temple_portal_curtain>
+
+  <snowball path="danger/" start="spin">
+    <Center/>
+    <Loop id="spin" path="snowball" delay="0.08" frames="0-11"/>
+    <Anim id="break" path="snowball" delay="0.04" frames="12-16"/>
+  </snowball>
+
+  <temple_eyeball path="danger/templeeye/" start="idle">
+    <Center/>
+    <Loop id="idle" path="body" frames="0" delay="0.08"/>
+    <Anim id="burst" path="body" frames="1,2,1,2,1,2,1-16" delay="0.08"/>
+  </temple_eyeball>
+
+  <crushblock_face path="objects/crushblock/" start="idle">
+      <Center/>
+      <Loop id="idle" path="idle_face" delay="0.08"/>
+      <Anim id="hurt" path="hurt" frames="3-12" delay="0.08" goto="idle"/>
+      <Anim id="hit" path="hit" delay="0.08"/>
+      <Loop id="left" path="hit_left" delay="0.08"/>
+      <Loop id="right" path="hit_right" delay="0.08"/>
+      <Loop id="up" path="hit_up" delay="0.08"/>
+      <Loop id="down" path="hit_down" delay="0.08"/>
+  </crushblock_face>
+
+<giant_crushblock_face path="objects/crushblock/" start="idle">
+      <Center/>
+      <Loop id="idle" path="giant_block" frames="0" delay="0.08"/>
+      <Anim id="hurt"  path="giant_block" frames="8-12" delay="0.08" goto="idle"/>
+      <Anim id="hit" path="giant_block" frames="0-5" delay="0.08"/>
+      <Loop id="right" path="giant_block" frames="6,7"  delay="0.08"/>
+  </giant_crushblock_face>
+
+  <bumper path="objects/bumper/" start="idle">
+      <Center/>
+      <Anim id="on" path="idle" frames="42-44" delay="0.06" goto="idle"/>
+      <Loop id="idle" path="idle" frames="0-33" delay="0.06"/>
+      <Anim id="hit" path="idle" frames="34-42" delay="0.06" goto="off"/>
+      <Loop id="off" path="idle" frames="42" delay="0.06"/>
+  </bumper>
+
+  <bumper_evil path="objects/bumper/" start="idle">
+      <Center/>
+      <Anim id="on" path="evil" frames="40-42" delay="0.06" goto="idle"/>
+      <Loop id="idle" path="evil" frames="0-31" delay="0.06"/>
+      <Anim id="hit" path="evil" frames="32-40" delay="0.06" goto="off"/>
+      <Loop id="off" path="evil" frames="40" delay="0.06"/>
+  </bumper_evil>
+
+  <badelineBoost path="objects/badelineBoost/" start="idle">
+    <Justify x="0.5" y="0.5"/>
+    <Anim id="idle" path="idle" frames="0-5" delay="0.08" goto="idle:10,flash:2,blink"/>
+    <Anim id="flash" path="idle" frames="6-11" delay="0.08" goto="idle"/>
+    <Anim id="blink" path="idle" frames="12-25" delay="0.08" goto="idle"/>
+  </badelineBoost>
+
+  <fireball path="objects/fireball/" start="hot">
+    <Center/>
+    <Loop id="hot" path="fireball" frames="0-7" delay="0.08"/>
+    <Loop id="ice" path="fireball" frames="8*10,8-17" delay="0.08"/>
+    <Anim id="shatter" path="fireball" frames="19-24" delay="0.08"/>
+  </fireball>
+
+  <bounceCenter path="objects/BumpBlock/" start="hot">
+    <Center/>
+    <Anim id="hotWait" path="center" frames="0-7" delay="0.08" goto="hotWaitLoop"/>
+    <Loop id="hotWaitLoop" path="center" frames="4-7" delay="0.08"/>
+    <Loop id="hot" path="center" frames="8-12" delay="0.08"/>
+    <Anim id="iceWait" path="center" frames="19-25" delay="0.08" goto="iceWaitLoop"/>
+    <Loop id="iceWaitLoop" path="center" frames="24-25" delay="0.08"/>
+    <Loop id="ice" path="center" frames="13-18" delay="0.08"/>
+  </bounceCenter>
+
+  <coreFlipSwitch path="objects/coreFlipSwitch/" start="hot">
+    <Center/>
+    <Anim id="hot" path="switch" frames="10-0" delay="0.08" goto="hotLoop"/>
+    <Loop id="hotLoop" path="switch" frames="0-1" delay="0.08"/>
+    <Anim id="hotOff" path="switch" frames="10-0,15-16" delay="0.08"/>
+    <Loop id="hotOffLoop" path="switch" frames="16" delay="0.08"/>
+    <Anim id="ice" path="switch" frames="2-12" delay="0.08" goto="iceLoop"/>
+    <Loop id="iceLoop" path="switch" frames="11-12" delay="0.08"/>
+    <Anim id="iceOff" path="switch" frames="2-12,13-14" delay="0.08"/>
+    <Loop id="iceOffLoop" path="switch" frames="14" delay="0.08"/>
+  </coreFlipSwitch>
+
+  <wallBoosterTop path="objects/wallBooster/" start="hot">
+    <Loop id="hot" path="fireTop" frames="0-7" delay="0.035"/>
+    <Anim id="ice" path="iceTop" frames="0*10" delay="0.08" goto="ice,ice,ice,ice,ice,iceShine"/>
+    <Anim id="iceShine" path="iceTop" frames="0-4" delay="0.08" goto="ice"/>
+  </wallBoosterTop>
+  <wallBoosterMid path="objects/wallBooster/" start="hot">
+    <Loop id="hot" path="fireMid" frames="0-7" delay="0.035"/>
+    <Anim id="ice" path="iceMid" frames="0*10" delay="0.08" goto="ice,ice,ice,ice,ice,iceShine"/>
+    <Anim id="iceShine" path="iceMid" frames="0-4" delay="0.08" goto="ice"/>
+  </wallBoosterMid>
+  <wallBoosterBottom path="objects/wallBooster/" start="hot">
+    <Loop id="hot" path="fireBottom" frames="0-7" delay="0.035"/>
+    <Anim id="ice" path="iceBottom" frames="0*10" delay="0.08" goto="ice,ice,ice,ice,ice,iceShine"/>
+    <Anim id="iceShine" path="iceBottom" frames="0-4" delay="0.08" goto="ice"/>
+  </wallBoosterBottom>
+
+  <bumpBlockCenterIce path="objects/BumpBlockNew/" start="idle">
+    <Center/>
+    <Loop id="idle" path="ice_center" delay="0.1"/>
+  </bumpBlockCenterIce>
+  
+  <bumpBlockCenterFire path="objects/BumpBlockNew/" start="idle">
+    <Center/>
+    <Loop id="idle" path="fire_center" delay="0.08"/>
+  </bumpBlockCenterFire>
+
+  <moonCreatureTiny path="scenery/moon_creatures/" start="idle">
+    <Center/>
+    <Loop id="idle" path="tiny" delay="0.08" frames="0-5"/>
+  </moonCreatureTiny>
+
+  <pufferFish path="objects/puffer/" start="idle">
+    <Center/>
+    <Loop id="idle" path="idle" delay="0.08"/>
+    <Anim id="alert" path="alert" goto="alerted" delay="0.08"/>
+    <Loop id="alerted" path="alerted" delay="0.08"/>
+    <Anim id="explode" path="explode" goto="hidden" delay="0.08"/>
+    <Anim id="unalert" path="alert" goto="idle" delay="0.08" frames="1,0"/>
+    <Loop id="hidden" path="hidden" delay="0.08"/>
+    <Anim id="recover" path="recover" goto="idle" delay="0.05"/>
+  </pufferFish>
+
+</Sprites>

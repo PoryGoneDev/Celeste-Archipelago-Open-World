@@ -23,6 +23,7 @@ namespace Celeste.Mod.Celeste_Multiworld.UI
             { "10a", "Empty Space" },
             { "10b", "Farewell" },
             { "10c", "Farewell Golden" },
+            { "poetry", "Poetry Slam" },
         };
 
         public void Load()
@@ -517,9 +518,13 @@ namespace Celeste.Mod.Celeste_Multiworld.UI
 
             Credits.Image apImage = new Credits.Image(GFX.Gui, "menu/start");
             Credits.Role apPory = new Credits.Role("PoryGone", new string[] { "Archipelago Implementation" });
+            Credits.Role apSterlia = new Credits.Role("Sterlia", new string[] { "Custom Berry Art" });
+            Credits.Role apLogic = new Credits.Role("Logic Helpers", new string[] { "BlueRed", "Dorijanko", "LeebyDeeby", "Nitrodon", "NonIdiot", "Seemmetor", "Sun God Moth", "Wither", "Zeeveez", "Zygan" });
 
             credits.Insert(insertPoint, apImage);
             credits.Insert(insertPoint + 1, apPory);
+            credits.Insert(insertPoint + 2, apSterlia);
+            credits.Insert(insertPoint + 3, apLogic);
 
             return credits;
         }

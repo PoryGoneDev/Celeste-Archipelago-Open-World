@@ -202,6 +202,15 @@ namespace Celeste.Mod.Celeste_Multiworld.Locations
             return count;
         }
 
+        public static Dictionary<string, long> MiscStringToID { get; set; } = new Dictionary<string, long>()
+        {
+            { "Poetry Slam", 0xCA0FFFF },
+        };
+        public static Dictionary<long, string> MiscIDToString { get; set; } = new Dictionary<long, string>()
+        {
+            { 0xCA0FFFF, "Poetry Slam" },
+        };
+
         public static Dictionary<string, long> CheckpointStringToID { get; set; } = new Dictionary<string, long>
         {
             // Level_Side_Room

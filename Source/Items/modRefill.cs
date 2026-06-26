@@ -49,9 +49,7 @@ namespace Celeste.Mod.Celeste_Multiworld.Items
 
         internal static bool HaveReceived(DashCount count)
         {
-            bool haveReceived = false;
-            Celeste_MultiworldModule.SaveData.Interactables.TryGetValue((long)count, out haveReceived);
-            return haveReceived;
+            return Celeste_MultiworldModule.SaveData.HaveInteractable((int)count);
         }
     }
 }

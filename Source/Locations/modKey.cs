@@ -45,7 +45,7 @@ namespace Celeste.Mod.Celeste_Multiworld.Locations
             self.Visible = false;
             string AP_ID = $"{SaveData.Instance.CurrentSession_Safe.Area.ID}_{(int)SaveData.Instance.CurrentSession_Safe.Area.Mode}_{self.ID}";
             Celeste_MultiworldModule.SaveData.KeyLocations.Add(AP_ID);
-            Logger.Verbose("AP", AP_ID);
+            //Logger.Verbose("AP", AP_ID);
 
             if (self.nodes != null && self.nodes.Length >= 2)
             {

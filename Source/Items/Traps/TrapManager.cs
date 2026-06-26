@@ -22,7 +22,8 @@ namespace Celeste.Mod.Celeste_Multiworld.Items.Traps
         Screen_Flip = 0x29,
         Laughter = 0x2A,
         Hiccup = 0x2B,
-        Zoom = 0x2C
+        Zoom = 0x2C,
+        Tiny = 0x2D
     }
 
     public enum TrapExpirationAction
@@ -127,6 +128,10 @@ namespace Celeste.Mod.Celeste_Multiworld.Items.Traps
                 {
                     break;
                 }
+                case TrapType.Tiny:
+                {
+                    break;
+                }
             }
         }
 
@@ -207,6 +212,10 @@ namespace Celeste.Mod.Celeste_Multiworld.Items.Traps
                 {
                     break;
                 }
+                case TrapType.Tiny:
+                {
+                    break;
+                }
             }
         }
     }
@@ -284,6 +293,7 @@ namespace Celeste.Mod.Celeste_Multiworld.Items.Traps
             { "Slow Trap",          TrapType.Slow },
             { "Stun Trap",          TrapType.Stun },
             { "Zoom Trap",          TrapType.Zoom },
+            { "Tiny Trap",          TrapType.Tiny },
 
             { "Animal Bonus Trap",   TrapType.Literature },
             { "Banana Trap",         TrapType.Ice },
@@ -469,7 +479,7 @@ namespace Celeste.Mod.Celeste_Multiworld.Items.Traps
                             break;
                         }
 
-                        if (bActive)
+                        if (bActive && Monocle.Engine.TimeRate >= 0.5f)
                         {
                             Monocle.Engine.TimeRate = 2.0f;
                         }
@@ -484,7 +494,7 @@ namespace Celeste.Mod.Celeste_Multiworld.Items.Traps
                             break;
                         }
 
-                        if (bActive)
+                        if (bActive && Monocle.Engine.TimeRate >= 0.5f)
                         {
                             Monocle.Engine.TimeRate = 0.5f;
                         }
@@ -558,6 +568,10 @@ namespace Celeste.Mod.Celeste_Multiworld.Items.Traps
                             }
                         }
 
+                        break;
+                    }
+                    case TrapType.Tiny:
+                    {
                         break;
                     }
                 }
@@ -709,6 +723,10 @@ namespace Celeste.Mod.Celeste_Multiworld.Items.Traps
                         return false;
                     }
 
+                    break;
+                }
+                case TrapType.Tiny:
+                {
                     break;
                 }
             }

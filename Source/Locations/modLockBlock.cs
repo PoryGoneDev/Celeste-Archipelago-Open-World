@@ -56,7 +56,7 @@ namespace Celeste.Mod.Celeste_Multiworld.Locations
             if (!self.opening)
             {
                 string Lock_ID = $"{SaveData.Instance.CurrentSession_Safe.Area.ID}_{(int)SaveData.Instance.CurrentSession_Safe.Area.Mode}_{self.ID}";
-                Logger.Verbose("AP", Lock_ID);
+                //Logger.Verbose("AP", Lock_ID);
 
                 if (!lockToKey.ContainsKey(Lock_ID))
                 {

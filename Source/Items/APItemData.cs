@@ -66,6 +66,13 @@ namespace Celeste.Mod.Celeste_Multiworld.Items
         {
             { 0xCA10000, "Strawberry" },
             { 0xCA10001, "Raspberry" },
+            { 0xCA10002, "Blue Raspberry" },
+            { 0xCA10003, "Blueberry" },
+            { 0xCA10004, "Blackberry" },
+            { 0xCA10005, "Boysenberry" },
+            { 0xCA10006, "Banana" },
+            { 0xCA10007, "Cranberry" },
+            { 0xCA10008, "Golden Raspberry" },
 
             { 0xCA10010, "Granny's House Keys" },
 
@@ -81,6 +88,23 @@ namespace Celeste.Mod.Celeste_Multiworld.Items
             { 0xCA1002A, "Laughter Trap" },
             { 0xCA1002B, "Hiccup Trap" },
             { 0xCA1002C, "Zoom Trap" },
+            { 0xCA1002D, "Tiny Trap" },
+
+            { 0xCA10080, "Dash" },
+            { 0xCA10081, "Up Dash" },
+            { 0xCA10082, "Up-Right Dash" },
+            { 0xCA10083, "Right Dash" },
+            { 0xCA10084, "Down-Right Dash" },
+            { 0xCA10085, "Down Dash" },
+            { 0xCA10086, "Down-Left Dash" },
+            { 0xCA10087, "Left Dash" },
+            { 0xCA10088, "Up-Left Dash" },
+
+            { 0xCA10089, "Climb" },
+            { 0xCA1008A, "Right Climb" },
+            { 0xCA1008B, "Left Climb" },
+
+            { 0xCA1008C, "Crouch" },
 
             { 0xCA11000, "Prologue Cassette" },
             { 0xCA11001, "Forsaken City Cassette - A Side" },
@@ -221,8 +245,9 @@ namespace Celeste.Mod.Celeste_Multiworld.Items
             { 0xCA1201F, "Strawberry Seeds" },
             { 0xCA12020, "Sinking Platforms" },
             { 0xCA12021, "White Block" },
-            { 0xCA12022, "Torches" },
+            { 0xCA12022, "Blue Torches" },
             { 0xCA12023, "Bird" },
+            { 0xCA12024, "Yellow Torches" },
 
             { 0xCA16000, "Celestial Resort A - Front Door Key" },
             { 0xCA16001, "Celestial Resort A - Hallway Key 1" },
@@ -362,5 +387,86 @@ namespace Celeste.Mod.Celeste_Multiworld.Items
             { 0xCA1403A, new CheckpointItemData(10, 0, "j-00") },
             { 0xCA1403B, new CheckpointItemData(10, 0, "j-16") },
         };
+        public static Dictionary<long, string> LevelNumToName { get; set; } = new Dictionary<long, string>
+        {
+            { 0, "Prologue" },
+            { 1, "Forsaken City" },
+            { 2, "Old Site" },
+            { 3, "Celestial Resort" },
+            { 4, "Golden Ridge" },
+            { 5, "Mirror Temple" },
+            { 6, "Reflection" },
+            { 7, "The Summit" },
+            { 8, "Epilogue" },
+            { 9, "Core" },
+            { 10, "Farewell" },
+        };
+        public static string ConvertInteractableName(long itemId)
+        {
+            string interactableName = "";
+
+            long adjustedId = itemId - 0xCA17000;
+            long baseItemId = (adjustedId % 0x40) + 0xCA12000;
+            string baseItemName = ItemIDToString[baseItemId];
+
+            long splitType = adjustedId / 0x1000;
+
+            if (splitType == 0)
+            {
+                // Per Side
+                long side = adjustedId / 0x100;
+                string sideString = "A";
+                if (side == 1)
+                {
+                    sideString = "B";
+                }
+                else if (side == 2)
+                {
+                    sideString = "C";
+                }
+
+                interactableName = sideString + "-Side " + baseItemName;
+            }
+            else if (splitType == 1)
+            {
+                // Per Level
+                adjustedId -= 0x1000;
+
+                long level = adjustedId / 0x40;
+                string levelName = LevelNumToName[level];
+
+                interactableName = levelName + " " + baseItemName;
+            }
+            else if (splitType == 2)
+            {
+                // Per Level and Side
+                adjustedId -= 0x2000;
+
+                long side = (adjustedId % 0x100) / 0x40;
+                string sideString = "A";
+                if (side == 1)
+                {
+                    sideString = "B";
+                }
+                else if (side == 2)
+                {
+                    sideString = "C";
+                }
+
+                long level = adjustedId / 0x100;
+                string levelName = LevelNumToName[level];
+
+                if (level == 10)
+                {
+                    interactableName = levelName + " " + baseItemName;
+                }
+                else
+                {
+                    interactableName = levelName + " " + sideString + " " + baseItemName;
+                }
+            }
+
+            return interactableName;
+        }
     }
 }

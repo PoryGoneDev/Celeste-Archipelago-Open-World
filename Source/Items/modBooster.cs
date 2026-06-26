@@ -57,9 +57,7 @@ namespace Celeste.Mod.Celeste_Multiworld.Items
 
         public static bool HaveReceived(BoosterColor color)
         {
-            bool haveReceived = false;
-            Celeste_MultiworldModule.SaveData.Interactables.TryGetValue((int)color, out haveReceived);
-            return haveReceived;
+            return Celeste_MultiworldModule.SaveData.HaveInteractable((int)color);
         }
     }
 }

@@ -36,4 +36,17 @@ public class Celeste_MultiworldModuleSettings : EverestModuleSettings
     public bool ServerMessages { get; set; } = true;
     public bool RoomPopups { get; set; } = true;
     #endregion
+
+    #region Misc
+    public enum ItemClassificationSpoils
+    {
+        None,
+        Non_Goldens,
+        Goldens,
+        All
+    }
+    public ItemClassificationSpoils ShowBerryLocationClassifications { get; set; } = ItemClassificationSpoils.All;
+
+    public bool JournalItemIndicators { get; set; } = false;
+    #endregion
 }

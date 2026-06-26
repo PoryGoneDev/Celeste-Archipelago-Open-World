@@ -25,7 +25,7 @@ namespace Celeste.Mod.Celeste_Multiworld.Locations
             string binoString = $"{SaveData.Instance.CurrentSession_Safe.Area.ID}_{(int)SaveData.Instance.CurrentSession_Safe.Area.Mode}_{SaveData.Instance.CurrentSession_Safe.Level}:{self.X}_{self.Y}";
 
             Celeste_MultiworldModule.SaveData.BinocularsLocations.Add(binoString);
-            Logger.Verbose("AP", binoString);
+            //Logger.Verbose("AP", binoString);
         }
     }
 }

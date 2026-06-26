@@ -45,9 +45,13 @@ namespace Celeste.Mod.Celeste_Multiworld.UI
                         return;
                     }
                 }
-                else
+                else if (this.connectMenu != null)
                 {
                     (this.connectMenu.items[6] as TextMenu.Header).Title = "Connecting...";
+                    return;
+                }
+                else
+                {
                     return;
                 }
             }
@@ -194,6 +198,31 @@ namespace Celeste.Mod.Celeste_Multiworld.UI
                 SaveData.Instance.UnlockedAreas = 10;
 
                 SaveData.Instance.AssistMode = true;
+
+                if (ArchipelagoManager.Instance.DashShuffle == -1)
+                {
+                    Celeste_MultiworldModule.SaveData.Interactables[0xCA12024] = true;
+
+                    Celeste_MultiworldModule.SaveData.UpDash = true;
+                    Celeste_MultiworldModule.SaveData.UpRightDash = true;
+                    Celeste_MultiworldModule.SaveData.RightDash = true;
+                    Celeste_MultiworldModule.SaveData.DownRightDash = true;
+                    Celeste_MultiworldModule.SaveData.DownDash = true;
+                    Celeste_MultiworldModule.SaveData.DownLeftDash = true;
+                    Celeste_MultiworldModule.SaveData.LeftDash = true;
+                    Celeste_MultiworldModule.SaveData.UpLeftDash = true;
+                }
+
+                if (ArchipelagoManager.Instance.ClimbShuffle == -1)
+                {
+                    Celeste_MultiworldModule.SaveData.RightClimb = true;
+                    Celeste_MultiworldModule.SaveData.LeftClimb = true;
+                }
+
+                if (ArchipelagoManager.Instance.CrouchShuffle == false)
+                {
+                    Celeste_MultiworldModule.SaveData.Crouch = true;
+                }
             }
 
             (Scene as Overworld).Goto<OuiChapterSelect>();

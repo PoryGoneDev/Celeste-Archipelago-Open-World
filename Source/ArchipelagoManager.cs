@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -61,7 +62,7 @@ namespace Celeste.Mod.Celeste_Multiworld
         public static ArchipelagoManager Instance { get; private set; }
 
         private static readonly Version _supportedArchipelagoVersion = new(0, 6, 5);
-        public static readonly int _modVersion = 10007;
+        public static readonly int _modVersion = 10100;
         private static readonly int _minAPWorldVersion = 10000;
 
         private ArchipelagoSession _session;
@@ -72,9 +73,12 @@ namespace Celeste.Mod.Celeste_Multiworld
 
         public DeathLink DeathLinkData { get; private set; }
         public int DeathsCounted = 0;
+        public int GoldenDeathsCounted = 0;
         public bool IsDeathLinkSafe { get; set; }
         public bool Ready { get; private set; }
         public bool WasConnected { get; private set; }
+        public bool AttemptingConnect { get; private set; }
+        public int ReconnectAttemptCount { get; private set; } = 0;
         public List<Tuple<int, ItemInfo>> ItemQueue { get; private set; } = new();
         public List<long> CollectedLocations { get; private set; } = new();
         public Dictionary<long, ItemInfo> LocationDictionary { get; private set; } = new();
@@ -91,16 +95,19 @@ namespace Celeste.Mod.Celeste_Multiworld
         private bool ItemRcvCallbackSet = false;
 
         public string StoredRoom = "";
+        public ConcurrentDictionary<string, int> StoredDeaths {  get; private set; } = new();
 
         #region Slot Data
         public int StrawberriesRequired { get; set; }
         public bool DeathLinkActive { get; set; }
         public int DeathLinkAmnesty { get; set; }
+        public int DeathLinkReceiptStyle { get; set; }
         public bool TrapLinkActive { get; set; }
         public bool Binosanity = false;
         public bool Roomsanity = false;
         public bool Carsanity = false;
         public bool IncludeGoldens = false;
+        public int GoldenAmnesty { get; set; }
         public bool IncludeCore = false;
         public bool IncludeFarewell = false;
         public bool IncludeBSides = false;
@@ -111,7 +118,13 @@ namespace Celeste.Mod.Celeste_Multiworld
         public Dictionary<int, int> MusicMap { get; set; } = new();
         public int MusicShuffle = 0;
         public bool RequireCassettes = false;
+        public int TorchBehavior = 0;
         public int ChosenPoem = 0;
+        public int DashShuffle { get; set; } = 0;
+        public int ClimbShuffle { get; set; } = 0;
+        public bool CrouchShuffle { get; set; } = false;
+        public int SplitInteractables { get; set; } = 0;
+        public List<long> ExistentInteractables { get; set; } = new();
         #endregion
 
         private static string commandHolder = null;
@@ -142,6 +155,8 @@ namespace Celeste.Mod.Celeste_Multiworld
                     {
                         this.SetRoomStorage("");
                     }
+
+                    HandleDeathsStorage();
                 }
                 catch (ArchipelagoSocketClosedException)
                 {
@@ -152,6 +167,8 @@ namespace Celeste.Mod.Celeste_Multiworld
 
         public async Task<LoginFailure> TryConnect()
         {
+            this.AttemptingConnect = true;
+
             _lastDeath = DateTime.MinValue;
             _session = ArchipelagoSessionFactory.CreateSession(Celeste_MultiworldModule.Settings.Address);
 
@@ -162,6 +179,15 @@ namespace Celeste.Mod.Celeste_Multiworld
             ItemQueue = new();
             LocationDictionary = new();
             GoalSent = false;
+            this.SentLocations.Clear();
+            this.ServerItemsRcv = -1;
+            this.StoredRoom = "";
+            this.StoredDeaths.Clear();
+            this.DeathsCounted = 0;
+            this.GoldenDeathsCounted = 0;
+            this.ItemQueue.Clear();
+            this.MessageLog.Clear();
+            this._lastDeath = DateTime.MinValue;
 
             // Watch for the following events.
             _session.Socket.ErrorReceived += OnError;
@@ -178,6 +204,7 @@ namespace Celeste.Mod.Celeste_Multiworld
             }
             catch (Exception ex)
             {
+                this.AttemptingConnect = false;
                 Disconnect();
                 string message = $"Unable to establish an initial connection to the Archipelago server @ {Celeste_MultiworldModule.Settings.Address} : {ex.Message}";
                 Monocle.Engine.Commands.Log(message, M_Color.Red);
@@ -195,6 +222,7 @@ namespace Celeste.Mod.Celeste_Multiworld
 
             if (!result.Successful)
             {
+                this.AttemptingConnect = false;
                 Disconnect();
                 Monocle.Engine.Commands.Log((result as LoginFailure).ToString(), M_Color.Red);
                 return result as LoginFailure;
@@ -208,6 +236,7 @@ namespace Celeste.Mod.Celeste_Multiworld
 
             if (apworldVersion < _minAPWorldVersion)
             {
+                this.AttemptingConnect = false;
                 Disconnect();
                 int major = _minAPWorldVersion / 10000;
                 int minor = (_minAPWorldVersion / 100) % 100;
@@ -217,6 +246,7 @@ namespace Celeste.Mod.Celeste_Multiworld
             }
             if (_modVersion < minModVersion)
             {
+                this.AttemptingConnect = false;
                 Disconnect();
                 int major = minModVersion / 10000;
                 int minor = (minModVersion / 100) % 100;
@@ -248,11 +278,13 @@ namespace Celeste.Mod.Celeste_Multiworld
             StrawberriesRequired = Convert.ToInt32(((LoginSuccessful)result).SlotData.TryGetValue("strawberries_required", out value) ? value : 100);
             DeathLinkActive = Convert.ToBoolean(((LoginSuccessful)result).SlotData.TryGetValue("death_link", out value) ? value : false);
             DeathLinkAmnesty = Convert.ToInt32(((LoginSuccessful)result).SlotData.TryGetValue("death_link_amnesty", out value) ? value : 10);
+            DeathLinkReceiptStyle = Convert.ToInt32(((LoginSuccessful)result).SlotData.TryGetValue("death_link_receipt_style", out value) ? value : 0);
             TrapLinkActive = Convert.ToBoolean(((LoginSuccessful)result).SlotData.TryGetValue("trap_link", out value) ? value : false);
             Binosanity = Convert.ToBoolean(((LoginSuccessful)result).SlotData.TryGetValue("binosanity", out value) ? value : false);
             Roomsanity = Convert.ToBoolean(((LoginSuccessful)result).SlotData.TryGetValue("roomsanity", out value) ? value : false);
             Carsanity = Convert.ToBoolean(((LoginSuccessful)result).SlotData.TryGetValue("carsanity", out value) ? value : false);
             IncludeGoldens = Convert.ToBoolean(((LoginSuccessful)result).SlotData.TryGetValue("include_goldens", out value) ? value : false);
+            GoldenAmnesty = Convert.ToInt32(((LoginSuccessful)result).SlotData.TryGetValue("golden_amnesty", out value) ? value : 1);
             IncludeCore = Convert.ToBoolean(((LoginSuccessful)result).SlotData.TryGetValue("include_core", out value) ? value : false);
             IncludeFarewell = Convert.ToBoolean(((LoginSuccessful)result).SlotData.TryGetValue("include_farewell", out value) ? value : false);
             IncludeBSides = Convert.ToBoolean(((LoginSuccessful)result).SlotData.TryGetValue("include_b_sides", out value) ? value : false);
@@ -265,8 +297,24 @@ namespace Celeste.Mod.Celeste_Multiworld
             MusicMap = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<int, int>>(((LoginSuccessful)result).SlotData["music_map"].ToString());
             MusicShuffle = Convert.ToInt32(((LoginSuccessful)result).SlotData.TryGetValue("music_shuffle", out value) ? value : 0);
             RequireCassettes = Convert.ToBoolean(((LoginSuccessful)result).SlotData.TryGetValue("require_cassettes", out value) ? value : false);
+            TorchBehavior = Convert.ToInt32(((LoginSuccessful)result).SlotData.TryGetValue("torch_behavior", out value) ? value : 0);
             ChosenPoem = Convert.ToInt32(((LoginSuccessful)result).SlotData.TryGetValue("chosen_poem", out value) ? value : 0);
             ChosenPoem = ChosenPoem % UI.modJournal.Poems.Count;
+
+            // Movement
+            DashShuffle = Convert.ToInt32(((LoginSuccessful)result).SlotData.TryGetValue("dash_shuffle", out value) ? value : -1);
+            ClimbShuffle = Convert.ToInt32(((LoginSuccessful)result).SlotData.TryGetValue("climb_shuffle", out value) ? value : -1);
+            CrouchShuffle = Convert.ToBoolean(((LoginSuccessful)result).SlotData.TryGetValue("crouch_shuffle", out value) ? value : false);
+
+            SplitInteractables = Convert.ToInt32(((LoginSuccessful)result).SlotData.TryGetValue("split_interactables", out value) ? value : 0);
+            try
+            {
+                ExistentInteractables = Newtonsoft.Json.JsonConvert.DeserializeObject<List<long>>(((LoginSuccessful)result).SlotData["existent_interactables"].ToString());
+            }
+            catch
+            {
+
+            }
 
             // Initialize DeathLink service.
             _deathLinkService = _session.CreateDeathLinkService();
@@ -281,7 +329,7 @@ namespace Celeste.Mod.Celeste_Multiworld
                 _session.ConnectionInfo.UpdateConnectionOptions(_session.ConnectionInfo.Tags.Concat(new string[1] { "TrapLink" }).ToArray());
             }
 
-            this.AddItemsRcvCallback($"Celeste_Open_Rcv_{_session.Players.GetPlayerName(this.Slot)}", ItemsRcvUpdated);
+            this.AddItemsRcvCallback($"Celeste_Open_Rcv_{_session.Players.GetPlayerName(this.Slot)}_{_session.ConnectionInfo.Team}", ItemsRcvUpdated);
             this.ServerItemsRcv = -1;
 
             // TODO: Wrap this and only do if active
@@ -293,6 +341,8 @@ namespace Celeste.Mod.Celeste_Multiworld
             // Return null to signify no error.
             Ready = true;
             WasConnected = true;
+            this.ReconnectAttemptCount = 0;
+            this.AttemptingConnect = false;
             return null;
         }
 
@@ -305,10 +355,22 @@ namespace Celeste.Mod.Celeste_Multiworld
             this.GoalSent = false;
             this.ServerItemsRcv = -1;
             this.StoredRoom = "";
+            this.StoredDeaths.Clear();
             this.DeathsCounted = 0;
+            this.GoldenDeathsCounted = 0;
             this.ItemQueue.Clear();
             this.MessageLog.Clear();
             this._lastDeath = DateTime.MinValue;
+
+            Celeste_MultiworldModule.SaveData.Strawberries = 0;
+            Celeste_MultiworldModule.SaveData.Raspberries = 0;
+            Celeste_MultiworldModule.SaveData.BlueRaspberries = 0;
+            Celeste_MultiworldModule.SaveData.Blueberries = 0;
+            Celeste_MultiworldModule.SaveData.Blackberries = 0;
+            Celeste_MultiworldModule.SaveData.Boysenberries = 0;
+            Celeste_MultiworldModule.SaveData.Bananas = 0;
+            Celeste_MultiworldModule.SaveData.Cranberries = 0;
+            Celeste_MultiworldModule.SaveData.GoldenRaspberries = 0;
 
             if (!attemptReconnect)
             {
@@ -334,8 +396,14 @@ namespace Celeste.Mod.Celeste_Multiworld
                 _session = null;
             }
 
-            if (this.WasConnected && attemptReconnect)
+            if (this.WasConnected && attemptReconnect && !this.AttemptingConnect)
             {
+                this.ReconnectAttemptCount++;
+
+                if (this.ReconnectAttemptCount >= 5)
+                {
+                    await Task.Delay(30000);
+                }
                 return await this.TryConnect();
             }
             else
@@ -509,9 +577,12 @@ namespace Celeste.Mod.Celeste_Multiworld
 
         private void OnLocationReceived(ReadOnlyCollection<long> newCheckedLocations)
         {
-            foreach (var newLoc in newCheckedLocations)
+            lock (CollectedLocations)
             {
-                CollectedLocations.Add(newLoc);
+                foreach (var newLoc in newCheckedLocations)
+                {
+                    CollectedLocations.Add(newLoc);
+                }
             }
         }
 
@@ -668,7 +739,10 @@ namespace Celeste.Mod.Celeste_Multiworld
 
             if (this.ServerItemsRcv < 0)
             {
+                // TODO: Remove in v1.1.1+
+                // Back-compat for sessions previously played with v1.0.x
                 this.ServerItemsRcv = this.GetInt($"Celeste_Open_Rcv_{_session.Players.GetPlayerName(this.Slot)}");
+                this.ServerItemsRcv = Math.Max(this.ServerItemsRcv, this.GetInt($"Celeste_Open_Rcv_{_session.Players.GetPlayerName(this.Slot)}_{_session.ConnectionInfo.Team}"));
                 return;
             }
 
@@ -679,17 +753,27 @@ namespace Celeste.Mod.Celeste_Multiworld
             {
                 var item = ItemQueue[index].Item2;
 
-                string receivedMessage = $"Received {Items.APItemData.ItemIDToString[item.ItemId]} from {GetPlayerName(item.Player)}.";
+                string itemName = "";
+                if (Items.APItemData.ItemIDToString.ContainsKey(item.ItemId))
+                {
+                    itemName = Items.APItemData.ItemIDToString[item.ItemId];
+                }
+                else if (item.ItemId >= 0xCA17000 && item.ItemId < 0xCA1D000)
+                {
+                    itemName = Items.APItemData.ConvertInteractableName(item.ItemId);
+                }
+
+                string receivedMessage = $"Received {itemName} from {GetPlayerName(item.Player)}.";
                 string itemColor = GetColorString(item.Flags);
                 string prettyMessage = "";
 
                 if (item.Player == this.Slot)
                 {
-                    prettyMessage = $"You found your {{{itemColor}}}{Items.APItemData.ItemIDToString[item.ItemId]}{{#}}.";
+                    prettyMessage = $"You found your {{{itemColor}}}{itemName}{{#}}.";
                 }
                 else
                 {
-                    prettyMessage = $"Received {{{itemColor}}}{Items.APItemData.ItemIDToString[item.ItemId]}{{#}} from {{#FAFAD2}}{GetPlayerName(item.Player)}{{#}}.";
+                    prettyMessage = $"Received {{{itemColor}}}{itemName}{{#}} from {{#FAFAD2}}{GetPlayerName(item.Player)}{{#}}.";
                 }
 
                 if ((item.ItemId < 0xCA10020 || item.ItemId >= 0xCA10050) && index >= this.ServerItemsRcv)
@@ -701,6 +785,7 @@ namespace Celeste.Mod.Celeste_Multiworld
 
                 switch (item.ItemId)
                 {
+                    // Berries
                     case 0xCA10000:
                     {
                         Celeste_MultiworldModule.SaveData.Strawberries += 1;
@@ -711,11 +796,53 @@ namespace Celeste.Mod.Celeste_Multiworld
                         Celeste_MultiworldModule.SaveData.Raspberries += 1;
                         break;
                     }
+                    case 0xCA10002:
+                    {
+                        Celeste_MultiworldModule.SaveData.BlueRaspberries += 1;
+                        break;
+                    }
+                    case 0xCA10003:
+                    {
+                        Celeste_MultiworldModule.SaveData.Blueberries += 1;
+                        break;
+                    }
+                    case 0xCA10004:
+                    {
+                        Celeste_MultiworldModule.SaveData.Blackberries += 1;
+                        break;
+                    }
+                    case 0xCA10005:
+                    {
+                        Celeste_MultiworldModule.SaveData.Boysenberries += 1;
+                        break;
+                    }
+                    case 0xCA10006:
+                    {
+                        Celeste_MultiworldModule.SaveData.Bananas += 1;
+                        break;
+                    }
+                    case 0xCA10007:
+                    {
+                        Celeste_MultiworldModule.SaveData.Cranberries += 1;
+                        break;
+                    }
+                    case 0xCA10008:
+                    {
+                        Celeste_MultiworldModule.SaveData.GoldenRaspberries += 1;
+                        break;
+                    }
                     case 0xCA10010:
                     {
                         Celeste_MultiworldModule.SaveData.GoalItem = true;
+
+                        if (audioGuard < 3)
+                        {
+                            audioGuard++;
+                            Audio.Play(SFX.game_07_gem_unlock_complete);
+                        }
                         break;
                     }
+                    // Traps
                     case long id when id >= 0xCA10020 && id < 0xCA10050:
                     {
                         if (index >= this.ServerItemsRcv)
@@ -724,6 +851,162 @@ namespace Celeste.Mod.Celeste_Multiworld
                         }
                         break;
                     }
+                    // Movement
+                    case 0xCA10080:
+                    {
+                        Celeste_MultiworldModule.SaveData.UpDash = true;
+                        Celeste_MultiworldModule.SaveData.UpRightDash = true;
+                        Celeste_MultiworldModule.SaveData.RightDash = true;
+                        Celeste_MultiworldModule.SaveData.DownRightDash = true;
+                        Celeste_MultiworldModule.SaveData.DownDash = true;
+                        Celeste_MultiworldModule.SaveData.DownLeftDash = true;
+                        Celeste_MultiworldModule.SaveData.LeftDash = true;
+                        Celeste_MultiworldModule.SaveData.UpLeftDash = true;
+
+                        break;
+                    }
+                    case 0xCA10081:
+                    {
+                        Celeste_MultiworldModule.SaveData.UpDash = true;
+
+                        if (DashShuffle == 2)
+                        {
+                            Celeste_MultiworldModule.SaveData.UpRightDash = true;
+                            Celeste_MultiworldModule.SaveData.UpLeftDash = true;
+                        }
+                        else if (DashShuffle == 3)
+                        {
+                            if (Celeste_MultiworldModule.SaveData.RightDash)
+                            {
+                                Celeste_MultiworldModule.SaveData.UpRightDash = true;
+                            }
+                            if (Celeste_MultiworldModule.SaveData.LeftDash)
+                            {
+                                Celeste_MultiworldModule.SaveData.UpLeftDash = true;
+                            }
+                        }
+
+                        break;
+                    }
+                    case 0xCA10082:
+                    {
+                        Celeste_MultiworldModule.SaveData.UpRightDash = true;
+
+                        break;
+                    }
+                    case 0xCA10083:
+                    {
+                        Celeste_MultiworldModule.SaveData.RightDash = true;
+
+                        if (DashShuffle == 2)
+                        {
+                            Celeste_MultiworldModule.SaveData.UpRightDash = true;
+                            Celeste_MultiworldModule.SaveData.DownRightDash = true;
+                        }
+                        else if (DashShuffle == 3)
+                        {
+                            if (Celeste_MultiworldModule.SaveData.UpDash)
+                            {
+                                Celeste_MultiworldModule.SaveData.UpRightDash = true;
+                            }
+                            if (Celeste_MultiworldModule.SaveData.DownDash)
+                            {
+                                Celeste_MultiworldModule.SaveData.DownRightDash = true;
+                            }
+                        }
+
+                        break;
+                    }
+                    case 0xCA10084:
+                    {
+                        Celeste_MultiworldModule.SaveData.DownRightDash = true;
+
+                        break;
+                    }
+                    case 0xCA10085:
+                    {
+                        Celeste_MultiworldModule.SaveData.DownDash = true;
+
+                        if (DashShuffle == 2)
+                        {
+                            Celeste_MultiworldModule.SaveData.DownRightDash = true;
+                            Celeste_MultiworldModule.SaveData.DownLeftDash = true;
+                        }
+                        else if (DashShuffle == 3)
+                        {
+                            if (Celeste_MultiworldModule.SaveData.RightDash)
+                            {
+                                Celeste_MultiworldModule.SaveData.DownRightDash = true;
+                            }
+                            if (Celeste_MultiworldModule.SaveData.LeftDash)
+                            {
+                                Celeste_MultiworldModule.SaveData.DownLeftDash = true;
+                            }
+                        }
+
+                        break;
+                    }
+                    case 0xCA10086:
+                    {
+                        Celeste_MultiworldModule.SaveData.DownLeftDash = true;
+
+                        break;
+                    }
+                    case 0xCA10087:
+                    {
+                        Celeste_MultiworldModule.SaveData.LeftDash = true;
+
+                        if (DashShuffle == 2)
+                        {
+                            Celeste_MultiworldModule.SaveData.UpLeftDash = true;
+                            Celeste_MultiworldModule.SaveData.DownLeftDash = true;
+                        }
+                        else if (DashShuffle == 3)
+                        {
+                            if (Celeste_MultiworldModule.SaveData.UpDash)
+                            {
+                                Celeste_MultiworldModule.SaveData.UpLeftDash = true;
+                            }
+                            if (Celeste_MultiworldModule.SaveData.DownDash)
+                            {
+                                Celeste_MultiworldModule.SaveData.DownLeftDash = true;
+                            }
+                        }
+
+                        break;
+                    }
+                    case 0xCA10088:
+                    {
+                        Celeste_MultiworldModule.SaveData.UpLeftDash = true;
+
+                        break;
+                    }
+                    case 0xCA10089:
+                    {
+                        Celeste_MultiworldModule.SaveData.RightClimb = true;
+                        Celeste_MultiworldModule.SaveData.LeftClimb = true;
+
+                        break;
+                    }
+                    case 0xCA1008A:
+                    {
+                        Celeste_MultiworldModule.SaveData.RightClimb = true;
+
+                        break;
+                    }
+                    case 0xCA1008B:
+                    {
+                        Celeste_MultiworldModule.SaveData.LeftClimb = true;
+
+                        break;
+                    }
+                    case 0xCA1008C:
+                    {
+                        Celeste_MultiworldModule.SaveData.Crouch = true;
+
+                        break;
+                    }
+                    // Cassettes
                     case long id when id >= 0xCA11000 && id < 0xCA12000:
                     {
                         Celeste_MultiworldModule.SaveData.CassetteItems[id] = true;
@@ -735,6 +1018,7 @@ namespace Celeste.Mod.Celeste_Multiworld
                         }
                         break;
                     }
+                    // Crystal Hearts
                     case long id when id >= 0xCA13000 && id < 0xCA14000:
                     {
                         string newPhrase = UI.modJournal.Poems[ChosenPoem][(int)(id - 0xCA13000)];
@@ -750,6 +1034,7 @@ namespace Celeste.Mod.Celeste_Multiworld
                         }
                         break;
                     }
+                    // Checkpoints
                     case long id when id >= 0xCA14000 && id < 0xCA15000:
                     {
                         Items.CheckpointItemData cp_data = Items.APItemData.CheckpointData[id];
@@ -762,6 +1047,7 @@ namespace Celeste.Mod.Celeste_Multiworld
                         }
                         break;
                     }
+                    // Keys
                     case long id when id >= 0xCA16000 && id < 0xCA16A00:
                     {
                         Celeste_MultiworldModule.SaveData.KeyItems[id] = true;
@@ -773,6 +1059,7 @@ namespace Celeste.Mod.Celeste_Multiworld
                         }
                         break;
                     }
+                    // Gems
                     case long id when id >= 0xCA16A00 && id < 0xCA17000:
                     {
                         Celeste_MultiworldModule.SaveData.GemItems[id] = true;
@@ -784,7 +1071,19 @@ namespace Celeste.Mod.Celeste_Multiworld
                         }
                         break;
                     }
+                    // Interactables
                     case long id when id >= 0xCA12000 && id < 0xCA12030:
+                    {
+                        Celeste_MultiworldModule.SaveData.Interactables[id] = true;
+
+                        if (audioGuard < 3)
+                        {
+                            audioGuard++;
+                            Audio.Play(SFX.game_gen_secret_revealed);
+                        }
+                        break;
+                    }
+                    case long id when id >= 0xCA17000 && id < 0xCA1D030:
                     {
                         Celeste_MultiworldModule.SaveData.Interactables[id] = true;
 
@@ -803,7 +1102,7 @@ namespace Celeste.Mod.Celeste_Multiworld
             if (Celeste_MultiworldModule.SaveData.ItemRcv > this.ServerItemsRcv)
             {
                 this.ServerItemsRcv = Celeste_MultiworldModule.SaveData.ItemRcv;
-                this.Set($"Celeste_Open_Rcv_{_session.Players.GetPlayerName(this.Slot)}", Celeste_MultiworldModule.SaveData.ItemRcv);
+                this.Set($"Celeste_Open_Rcv_{_session.Players.GetPlayerName(this.Slot)}_{_session.ConnectionInfo.Team}", Celeste_MultiworldModule.SaveData.ItemRcv);
             }
         }
 
@@ -815,6 +1114,17 @@ namespace Celeste.Mod.Celeste_Multiworld
             }
 
             List<long> locationsToCheck = new List<long>();
+            foreach (KeyValuePair<string, long> miscIDPair in Locations.APLocationData.MiscStringToID)
+            {
+                if (Celeste_MultiworldModule.SaveData.MiscLocations.Contains(miscIDPair.Key))
+                {
+                    long locationID = miscIDPair.Value;
+                    if (!SentLocations.Contains(locationID))
+                    {
+                        locationsToCheck.Add(locationID);
+                    }
+                }
+            }
             foreach (KeyValuePair<string, long> checkpointIDPair in Locations.APLocationData.CheckpointStringToID)
             {
                 if (Celeste_MultiworldModule.SaveData.CheckpointLocations.Contains(checkpointIDPair.Key))
@@ -936,7 +1246,15 @@ namespace Celeste.Mod.Celeste_Multiworld
                 return;
             }
 
-            foreach (long newLoc in CollectedLocations)
+            List<long> CollectedLocationsCopy;
+
+            lock (CollectedLocations)
+            {
+                CollectedLocationsCopy = new List<long>(CollectedLocations);
+                CollectedLocations.Clear();
+            }
+
+            foreach (long newLoc in CollectedLocationsCopy)
             {
                 if (Locations.APLocationData.CheckpointIDToString.ContainsKey(newLoc))
                 {
@@ -1031,8 +1349,66 @@ namespace Celeste.Mod.Celeste_Multiworld
                     Celeste_MultiworldModule.SaveData.RoomLocations.Add(roomLocString);
                 }
             }
+        }
 
-            CollectedLocations.Clear();
+        public string AreaModeToDataStorageKey(int area, int mode)
+        {
+            try
+            {
+                return $"Celeste_Open_Deaths_{_session.ConnectionInfo.Team}_{_session.Players.GetPlayerName(this.Slot)}_{area}_{mode}";
+            }
+            catch (KeyNotFoundException)
+            {
+                Disconnect();
+                return "";
+            }
+        }
+
+        public void HandleDeathsStorage()
+        {
+            try
+            {
+                foreach (AreaStats area in SaveData.Instance.Areas_Safe)
+                {
+                    for (int mode = 0; mode < area.Modes.Count(); mode++)
+                    {
+                        AreaModeStats modeStats = area.Modes[mode];
+                        string key = AreaModeToDataStorageKey(area.ID, mode);
+
+                        if (key == "")
+                        {
+                            return;
+                        }
+
+                        int storedDeath = 0;
+                        if (this.StoredDeaths.TryGetValue(key, out storedDeath))
+                        {
+                            if (storedDeath < modeStats.Deaths)
+                            {
+                                this.Set(key, modeStats.Deaths);
+                                this.StoredDeaths[key] = modeStats.Deaths;
+                            }
+                            else
+                            {
+                                modeStats.Deaths = storedDeath;
+                            }
+                        }
+                        else
+                        {
+                            this.StoredDeaths[key] = 0;
+                            _session.DataStorage[key].GetAsync<int>().ContinueWith(x => { this.StoredDeaths[key] = x.Result; });
+                            _session.DataStorage[key].OnValueChanged += (oldData, newData, _) => {
+                                int newDeaths = JsonConvert.DeserializeObject<int>(newData.ToString());
+                                this.StoredDeaths[key] = newDeaths;
+                            };
+                        }
+                    }
+                }
+            }
+            catch (NullReferenceException)
+            {
+                Disconnect();
+            }
         }
 
         public void SendTrapLink(Items.Traps.TrapType trapType)
@@ -1127,12 +1503,34 @@ namespace Celeste.Mod.Celeste_Multiworld
 
         public void SetRoomStorage(string newRoom)
         {
-            if (this.Slot != -1 && newRoom != this.StoredRoom)
+            try
             {
-                this.StoredRoom = newRoom;
-                this.Set($"Celeste_Open_Room_{_session.Players.GetPlayerName(this.Slot)}", newRoom);
-                Logger.Verbose("AP", $"Set Celeste_Open_Room_{_session.Players.GetPlayerName(this.Slot)} to {newRoom}");
+                if (this.Slot != -1 && newRoom != this.StoredRoom)
+                {
+                    this.StoredRoom = newRoom;
+                    this.Set($"Celeste_Open_Room_{_session.Players.GetPlayerName(this.Slot)}", newRoom);
+                    this.Set($"Celeste_Open_Room_{_session.ConnectionInfo.Team}_{_session.Players.GetPlayerName(this.Slot)}", newRoom);
+                    Logger.Verbose("AP", $"Set Celeste_Open_Room_{_session.ConnectionInfo.Team}_{_session.Players.GetPlayerName(this.Slot)} to {newRoom}");
+                }
             }
+            catch (NullReferenceException)
+            {
+                Disconnect();
+            }
+        }
+
+        public int GetFlagsForStrawberry(string strawberryID)
+        {
+            long StrawberryAPID = Locations.APLocationData.StrawberryIDToAP[strawberryID];
+
+            return this.LocationDictionary.Keys.Contains(StrawberryAPID) ? (int)this.LocationDictionary[StrawberryAPID].Flags : 1;
+        }
+
+        public bool IsActuallyStrawberry(string strawberryID)
+        {
+            long StrawberryAPID = Locations.APLocationData.StrawberryIDToAP[strawberryID];
+
+            return this.LocationDictionary.Keys.Contains(StrawberryAPID) ? this.LocationDictionary[StrawberryAPID].ItemName == "Strawberry" : false;
         }
 
         private void OnPacketReceived(ArchipelagoPacketBase packet)
