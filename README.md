@@ -14,7 +14,7 @@ By default, the Prologue, the A-Side levels for Chapters 1-7, and the Epilogue a
 
 The main collectable in this game is Strawberries, which you must collect to complete the game.
 
-16 Crystal Heart items are included as filler items (Heart Gates are disabled in this mod). Any additional space in the item pool is filled by Raspberries, which do nothing, and Traps.
+16 Crystal Heart items are included as filler items (Heart Gates are disabled in this mod). These can optionally be required as your goal completion items. Any additional space in the item pool is filled by Raspberries or other berries, which do nothing, and Traps.
 
 The following interactable items are included in the item pool, so long as any active level includes them:
 - Springs
@@ -35,7 +35,8 @@ The following interactable items are included in the item pool, so long as any a
 - White Block
 - Swap Blocks
 - Dash Switches
-- Torches
+- Blue Torches
+- Yellow Torches
 - Theo Crystal
 - Feathers
 - Bumpers
@@ -52,7 +53,9 @@ The following interactable items are included in the item pool, so long as any a
 - Green Cassette Blocks
 - Bird
 
-Additionally, the following items can optionally be included in the Item Pool:
+The eight dash directions, climbing to the left and right, and crouching can all be included in the item pool.
+
+Additionally, the following items can optionally be included in the item pool:
 - Keys
 - Checkpoints
 - Summit Gems
@@ -71,6 +74,7 @@ Finally, the following Traps can be optionally included in the Item Pool:
 - Laughter Trap
 - Hiccup Trap
 - Zoom Trap
+- Tiny Trap
 
 ## What locations get shuffled?
 
@@ -91,19 +95,19 @@ Additionally, the following locations can optionally be included in the Location
 
 ## How can I get started?
 
-## Required Software
+### Required Software
 - The latest version of Celeste (1.4) from any official PC game distributor
 - Olympus (Celeste Mod Manager) from: [Olympus Download Page](https://everestapi.github.io/)
 - The latest version of the Archipelago Open World mod for Celeste from: [Latest GitHub Release](https://github.com/PoryGoneDev/CelesteAP/releases)
 
-## Installation Procedures (Windows)
+### Installation Procedures (Windows)
 
 1. Install the latest version of Celeste (v1.4) on PC
 2. Install `Olympus` (mod manager/launcher) and `Everest` (mod loader) per its instructions: https://everestapi.github.io/
 3. Place the `Archipelago_Open_World.zip` from the GitHub release into the `mods` folder in your Celeste install
 4. (Recommended) From the main menu, enter `Mod Options` and set `Debug Mode` to `Everest` or `Always`. This will give you access to a rudimentary Text Client which can be toggled with the `~` key.
 
-## Joining a MultiWorld Game
+### Joining a MultiWorld Game
 
 1. Load Everest from the Olympus Launcher with the Archipelago Open World mod enabled
 2. Enter the Connection Menu via the `Connect` button on the main menu
