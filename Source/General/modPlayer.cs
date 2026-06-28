@@ -255,7 +255,6 @@ namespace Celeste.Mod.Celeste_Multiworld.General
 
         private static Vector2 modPlayer_CorrectDashPrecision(On.Celeste.Player.orig_CorrectDashPrecision orig, Player self, Vector2 dir)
         {
-            // TODO: Check for Boosters
             dir = orig(self, dir);
 
             if (!CanDash(dir) && !self.level.InCredits && (self.CurrentBooster == null))
@@ -279,6 +278,7 @@ namespace Celeste.Mod.Celeste_Multiworld.General
             }
             else
             {
+                self.Speed.X /= 1.2f;
                 self.Jump();
             }
         }
