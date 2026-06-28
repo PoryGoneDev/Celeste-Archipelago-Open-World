@@ -81,6 +81,7 @@ namespace Celeste.Mod.Celeste_Multiworld.General
             On.Celeste.Player.SuperJump += modPlayer_SuperJump;
             On.Celeste.Player.ClimbCheck += modPlayer_ClimbCheck;
             On.Celeste.Player.ClimbJump += modPlayer_ClimbJump;
+            On.Celeste.Player.IsRiding_Solid += modPlayer_IsRiding_Solid;
             On.Celeste.Player.Duck += modPlayer_Duck;
             On.Celeste.PlayerSeeker.Update += modPlayerSeeker_Update;
             On.Celeste.Level.LoadLevel += modLevel_LoadLevel;
@@ -99,6 +100,7 @@ namespace Celeste.Mod.Celeste_Multiworld.General
             On.Celeste.Player.SuperJump -= modPlayer_SuperJump;
             On.Celeste.Player.ClimbCheck -= modPlayer_ClimbCheck;
             On.Celeste.Player.ClimbJump -= modPlayer_ClimbJump;
+            On.Celeste.Player.IsRiding_Solid -= modPlayer_IsRiding_Solid;
             On.Celeste.Player.Duck -= modPlayer_Duck;
             On.Celeste.PlayerSeeker.Update -= modPlayerSeeker_Update;
             On.Celeste.Level.LoadLevel -= modLevel_LoadLevel;
@@ -307,6 +309,30 @@ namespace Celeste.Mod.Celeste_Multiworld.General
             {
                 self.WallJump(-(int)self.Facing);
             }
+        }
+
+        private static bool modPlayer_IsRiding_Solid(On.Celeste.Player.orig_IsRiding_Solid orig, Player self, Solid solid)
+        {
+            if (self.StateMachine.State == 23)
+            {
+                return false;
+            }
+            if (self.StateMachine.State == 9)
+            {
+                return (self as Actor).CollideCheck(solid);
+            }
+            if (CanClimb(self.Facing))
+            {
+                if (self.StateMachine.State == 1 || self.StateMachine.State == 6)
+                {
+                    return (self as Actor).CollideCheck(solid, self.Position + Vector2.UnitX * (float)self.Facing);
+                }
+                if (self.climbTriggerDir != 0)
+                {
+                    return (self as Actor).CollideCheck(solid, self.Position + Vector2.UnitX * (float)self.climbTriggerDir);
+                }
+            }
+            return (self as Monocle.Entity).CollideCheck(solid, self.Position + Vector2.UnitY);
         }
 
         private static void modPlayer_Duck(On.Celeste.Player.orig_Duck orig, Player self)
