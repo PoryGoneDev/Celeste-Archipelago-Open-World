@@ -458,11 +458,11 @@ namespace Celeste.Mod.Celeste_Multiworld.Items
 
                 if (level == 10)
                 {
-                    interactableName = levelName + " " + baseItemName;
+                    interactableName = levelName + " - " + baseItemName;
                 }
                 else
                 {
-                    interactableName = levelName + " " + sideString + " " + baseItemName;
+                    interactableName = levelName + " " + sideString + " - " + baseItemName;
                 }
             }
 
