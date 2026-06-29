@@ -597,6 +597,41 @@
     <Loop id="idle" path="seed" frames="0*19,1" delay="0.1" />
     <Loop id="noFlash" path="seed" frames="0" />
   </strawberrySeed>
+  
+  <trapStrawberrySeed path="collectables/trapberry/strawberry/">
+    <Center />
+
+    <Loop id="idle" path="seed" frames="0*19,1" delay="0.1" />
+    <Loop id="noFlash" path="seed" frames="0" />
+  </trapStrawberrySeed>
+	
+  <progStrawberrySeed path="collectables/progberry/strawberry/">
+    <Center />
+
+    <Loop id="idle" path="seed" frames="0*19,1" delay="0.1" />
+    <Loop id="noFlash" path="seed" frames="0" />
+  </progStrawberrySeed>
+	
+  <usefulStrawberrySeed path="collectables/usefulberry/strawberry/">
+    <Center />
+
+    <Loop id="idle" path="seed" frames="0*19,1" delay="0.1" />
+    <Loop id="noFlash" path="seed" frames="0" />
+  </usefulStrawberrySeed>
+	
+  <fillerStrawberrySeed path="collectables/fillerberry/strawberry/">
+    <Center />
+
+    <Loop id="idle" path="seed" frames="0*19,1" delay="0.1" />
+    <Loop id="noFlash" path="seed" frames="0" />
+  </fillerStrawberrySeed>
+	
+  <progGhostStrawberrySeed path="collectables/progberry/ghostberry/">
+    <Center />
+
+    <Loop id="idle" path="seed" frames="0*19,1" delay="0.1" />
+    <Loop id="noFlash" path="seed" frames="0" />
+  </progGhostStrawberrySeed>
 	
   <ghostberrySeed path="collectables/ghostberry/">
     <Center />

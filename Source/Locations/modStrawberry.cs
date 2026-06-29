@@ -172,7 +172,6 @@ namespace Celeste.Mod.Celeste_Multiworld.Locations
                 }
                 else if ((strawberryFlags & 0b10) != 0)
                 {
-                    Logger.Warn("AP", "usefulberry");
                     self.sprite = GFX.SpriteBank.Create("usefulberry");
                 }
                 else if ((strawberryFlags & 0b100) != 0)
