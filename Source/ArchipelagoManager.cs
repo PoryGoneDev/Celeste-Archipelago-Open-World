@@ -62,7 +62,7 @@ namespace Celeste.Mod.Celeste_Multiworld
         public static ArchipelagoManager Instance { get; private set; }
 
         private static readonly Version _supportedArchipelagoVersion = new(0, 6, 5);
-        public static readonly int _modVersion = 10100;
+        public static readonly int _modVersion = 10101;
         private static readonly int _minAPWorldVersion = 10000;
 
         private ArchipelagoSession _session;
