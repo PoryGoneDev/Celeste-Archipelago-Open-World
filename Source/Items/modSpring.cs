@@ -9,7 +9,7 @@ namespace Celeste.Mod.Celeste_Multiworld.Items
     public class modSpring : modItemBase
     {
         static Microsoft.Xna.Framework.Color originalColor;
-        static bool setColor = false;
+        static bool replaceColor = false;
 
         public override void Load()
         {
@@ -36,22 +36,24 @@ namespace Celeste.Mod.Celeste_Multiworld.Items
 
         private static void modSpring_Render(On.Celeste.Spring.orig_Render orig, Spring self)
         {
-            orig(self);
-
-            if (!setColor)
-            {
-                originalColor = self.sprite.Color;
-                setColor = true;
-            }
-
+            originalColor = self.sprite.Color;
             if (!HaveReceived())
             {
-                self.sprite.Color = Microsoft.Xna.Framework.Color.DarkMagenta;
+                // <NonIdiot> Set replaceColor to true to simply replace the color with DarkMagenta.
+                if (replaceColor)
+                {
+                    self.sprite.Color = Microsoft.Xna.Framework.Color.DarkMagenta;
+                }
+                // <NonIdiot> Otherwise, it will multiply the color of the spring with DarkMagenta.
+                else
+                {
+                    self.sprite.Color.R *= (byte)(Microsoft.Xna.Framework.Color.DarkMagenta.R/128);
+                    self.sprite.Color.G *= (byte)(Microsoft.Xna.Framework.Color.DarkMagenta.G/128);
+                    self.sprite.Color.B *= (byte)(Microsoft.Xna.Framework.Color.DarkMagenta.B/128);
+                }
             }
-            else
-            {
-                self.sprite.Color = originalColor;
-            }
+            orig(self);
+            self.sprite.Color = originalColor;
         }
 
         private static void modSpring_OnCollide(On.Celeste.Spring.orig_OnCollide orig, Spring self, Player player)
